@@ -1,17 +1,18 @@
-FROM balenalib/raspberrypi3-debian:stretch-20190612
+FROM balenalib/intel-nuc-debian:latest
 
-RUN wget http://ports.ubuntu.com/pool/main/j/jasper/libjasper-dev_1.900.1-debian1-2.4ubuntu1.3_arm64.deb
-
-RUN dpkg -i libjasper*.deb
+RUN apt-get update && apt install wget
 
 # Install dependencies
-RUN apt-get update && \
-  apt-get install -yq \
+RUN apt-get install -yq \
+    build-essential \
+    autoconf \
+    libtool \
     python3 \
     python3-dev \
     python3-pip \
     python3-setuptools \
     gstreamer-1.0 \
+    libffi-dev \
     v4l-utils \
     libopus-dev \
     libvpx-dev \
@@ -19,9 +20,8 @@ RUN apt-get update && \
     libopencv-dev \
     libatlas3-base \
     libatlas-base-dev \
-    libjasper-dev \
-    libilmbase12 \
-    libopenexr22 \
+    libilmbase-dev \
+    libopenexr-dev \
     libavformat-dev \
     libswscale-dev \
     libqtgui4 \
@@ -33,12 +33,10 @@ RUN apt-get update && \
 
 # Enable the v4l2 driver for the Raspberry Pi camera
 #RUN printf "bcm2835-v4l2\n" >> /etc/modules
-RUN pip3 install --upgrade pip 
-RUN pip3 install async-timeout av==6.1.0
-RUN pip3 install websocket-client aiohttp aiohttp_basicauth==0.1.3 aioice==0.6.10 aiortc==0.9.11 numpy==1.15.4 opencv-python==3.4.4.19 --index-url https://www.piwheels.org/simple
+RUN pip3 install --upgrade pip wheel 
 
 WORKDIR /usr/src/app
 
 COPY ./app/ /usr/src/app/
-
+RUN pip3 install -r requirements.txt
 CMD ["python3", "/usr/src/app/server.py"]

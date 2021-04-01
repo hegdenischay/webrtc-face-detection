@@ -1,0 +1,10 @@
+async-timeout
+av
+websocket-client
+aiohttp
+aiohttp-basicauth
+aioice
+aiortc
+numpy
+opencv-python
+

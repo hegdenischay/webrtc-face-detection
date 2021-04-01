@@ -12,7 +12,7 @@ Module.onRuntimeInitialized = function() {
 };
 
 class EdgeImpulseClassifier {
-    _initialized = false;
+//    _initialized = false;
 
     init() {
         if (classifierInitialized === true) return Promise.resolve();
