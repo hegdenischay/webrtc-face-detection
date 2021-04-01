@@ -65,7 +65,7 @@ class PeerConnectionFactory():
 
 
         self.STUN_SERVER = None
-        self.TURN_SERVER = None
+        self.TURN_SERVER = 'localhost:3478'
         self.TURN_USERNAME = None
         self.TURN_PASSWORD = None
         if all(k in os.environ for k in ('STUN_SERVER', 'TURN_SERVER', 'TURN_USERNAME', 'TURN_PASSWORD')):
