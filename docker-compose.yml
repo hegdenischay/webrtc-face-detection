@@ -15,12 +15,7 @@ services:
                         io.balena.features.kernel-modules: '1'
         coturn:
                 restart: unless-stopped
-                image: "instrumentisto/coturn:4.5"
+                build: ./coturn-docker-image
                 ports:
                         - "3478:3478/udp"
                         - "49200-49400:49200-49400/udp"
-                volumes:
-                        - ./coturn/turnserver-local.conf:/etc/coturn/turnserver.conf:Z
-                        - /tmp/log/coturn/:/var/log/:Z
-                        - ./coturn/db:/var/lib/coturn
-                command: "-c /etc/coturn/turnserver.conf --log-file=/var/log/coturn.log --external-ip=$$(detect-external-ip)"
