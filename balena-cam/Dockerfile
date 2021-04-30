@@ -32,7 +32,7 @@ RUN apt-get install -yq \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Enable the v4l2 driver for the Raspberry Pi camera
-#RUN printf "bcm2835-v4l2\n" >> /etc/modules
+RUN printf "bcm2835-v4l2\n" >> /etc/modules
 RUN pip3 install --upgrade pip wheel 
 
 WORKDIR /usr/src/app

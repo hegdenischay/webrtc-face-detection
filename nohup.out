@@ -1,0 +1,715 @@
+Attaching to webrtc-face-detection_edgeimpulse-inference_1, webrtc-face-detection_balena-cam_1
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m > edgeimpulse-inference-wasm@1.0.0 prestart
+[33medgeimpulse-inference_1  |[0m > sh ./downloadWasm.sh
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m 670188
+[33medgeimpulse-inference_1  |[0m   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+[33medgeimpulse-inference_1  |[0m                                  Dload  Upload   Total   Spent    Left  Speed
+[33medgeimpulse-inference_1  |[0m   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   193  100   193    0     0    325      0 --:--:-- --:--:-- --:--:--   324100   193  100   193    0     0    325      0 --:--:-- --:--:-- --:--:--   324
+[33medgeimpulse-inference_1  |[0m   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+[33medgeimpulse-inference_1  |[0m                                  Dload  Upload   Total   Spent    Left  Speed
+[33medgeimpulse-inference_1  |[0m   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 28760    0 28760    0     0  35073      0 --:--:-- --:--:-- --:--:-- 35030100  506k    0  506k    0     0   407k      0 --:--:--  0:00:01 --:--:--  408k
+[33medgeimpulse-inference_1  |[0m Archive:  wasm.zip
+[33medgeimpulse-inference_1  |[0m   inflating: edge-impulse-standalone.wasm  
+[33medgeimpulse-inference_1  |[0m   inflating: edge-impulse-standalone.js  
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m > edgeimpulse-inference-wasm@1.0.0 start
+[33medgeimpulse-inference_1  |[0m > node server.js
+[33medgeimpulse-inference_1  |[0m 
+Attaching to webrtc-face-detection_edgeimpulse-inference_1, webrtc-face-detection_balena-cam_1
+[36mbalena-cam_1             |[0m Video device is ready
+[36mbalena-cam_1             |[0m 
+[36mbalena-cam_1             |[0m #############################################################
+[36mbalena-cam_1             |[0m Authorization is disabled.
+[36mbalena-cam_1             |[0m Anyone can access your balenaCam, using the device's URL!
+[36mbalena-cam_1             |[0m Set the username and password environment variables 
+[36mbalena-cam_1             |[0m to enable authorization.
+[36mbalena-cam_1             |[0m For more info visit: 
+[36mbalena-cam_1             |[0m https://github.com/balena-io-playground/balena-cam
+[36mbalena-cam_1             |[0m #############################################################
+[36mbalena-cam_1             |[0m 
+[36mbalena-cam_1             |[0m ======== Running on http://0.0.0.0:80 ========
+[36mbalena-cam_1             |[0m (Press CTRL+C to quit)
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m > edgeimpulse-inference-wasm@1.0.0 prestart
+[33medgeimpulse-inference_1  |[0m > sh ./downloadWasm.sh
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m 670188
+[33medgeimpulse-inference_1  |[0m   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+[33medgeimpulse-inference_1  |[0m                                  Dload  Upload   Total   Spent    Left  Speed
+[33medgeimpulse-inference_1  |[0m   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   193  100   193    0     0    289      0 --:--:-- --:--:-- --:--:--   288100   193  100   193    0     0    288      0 --:--:-- --:--:-- --:--:--   288
+[33medgeimpulse-inference_1  |[0m   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+[33medgeimpulse-inference_1  |[0m                                  Dload  Upload   Total   Spent    Left  Speed
+[33medgeimpulse-inference_1  |[0m   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  506k    0  506k    0     0   363k      0 --:--:--  0:00:01 --:--:--  363k
+[33medgeimpulse-inference_1  |[0m Archive:  wasm.zip
+[33medgeimpulse-inference_1  |[0m   inflating: edge-impulse-standalone.wasm  
+[33medgeimpulse-inference_1  |[0m   inflating: edge-impulse-standalone.js  
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m > edgeimpulse-inference-wasm@1.0.0 start
+[33medgeimpulse-inference_1  |[0m > node server.js
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m npm notice 
+[33medgeimpulse-inference_1  |[0m npm notice New minor version of npm available! 7.5.3 -> 7.11.1
+[33medgeimpulse-inference_1  |[0m npm notice Changelog: <https://github.com/npm/cli/releases/tag/v7.11.1>
+[33medgeimpulse-inference_1  |[0m npm notice Run `npm install -g npm@7.11.1` to update!
+[33medgeimpulse-inference_1  |[0m npm notice 
+[33medgeimpulse-inference_1  |[0m npm ERR! path /usr/src/app
+[33medgeimpulse-inference_1  |[0m npm ERR! command failed
+[33medgeimpulse-inference_1  |[0m npm ERR! signal SIGTERM
+[33medgeimpulse-inference_1  |[0m npm ERR! command sh -c node server.js
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m npm ERR! A complete log of this run can be found in:
+[33medgeimpulse-inference_1  |[0m npm ERR!     /root/.npm/_logs/2021-04-24T04_12_52_249Z-debug.log
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m > edgeimpulse-inference-wasm@1.0.0 prestart
+[33medgeimpulse-inference_1  |[0m > sh ./downloadWasm.sh
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m 670188
+[33medgeimpulse-inference_1  |[0m   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+[33medgeimpulse-inference_1  |[0m                                  Dload  Upload   Total   Spent    Left  Speed
+[33medgeimpulse-inference_1  |[0m   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   193  100   193    0     0    325      0 --:--:-- --:--:-- --:--:--   324100   193  100   193    0     0    325      0 --:--:-- --:--:-- --:--:--   324
+[33medgeimpulse-inference_1  |[0m   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+[33medgeimpulse-inference_1  |[0m                                  Dload  Upload   Total   Spent    Left  Speed
+[33medgeimpulse-inference_1  |[0m   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 28760    0 28760    0     0  35073      0 --:--:-- --:--:-- --:--:-- 35030100  506k    0  506k    0     0   407k      0 --:--:--  0:00:01 --:--:--  408k
+[33medgeimpulse-inference_1  |[0m Archive:  wasm.zip
+[33medgeimpulse-inference_1  |[0m   inflating: edge-impulse-standalone.wasm  
+[33medgeimpulse-inference_1  |[0m   inflating: edge-impulse-standalone.js  
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m > edgeimpulse-inference-wasm@1.0.0 start
+[33medgeimpulse-inference_1  |[0m > node server.js
+[33medgeimpulse-inference_1  |[0m 
+Attaching to webrtc-face-detection_edgeimpulse-inference_1, webrtc-face-detection_balena-cam_1
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m > edgeimpulse-inference-wasm@1.0.0 prestart
+[33medgeimpulse-inference_1  |[0m > sh ./downloadWasm.sh
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m 670188
+[33medgeimpulse-inference_1  |[0m   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+[33medgeimpulse-inference_1  |[0m                                  Dload  Upload   Total   Spent    Left  Speed
+[33medgeimpulse-inference_1  |[0m   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   193  100   193    0     0    289      0 --:--:-- --:--:-- --:--:--   288100   193  100   193    0     0    288      0 --:--:-- --:--:-- --:--:--   288
+[33medgeimpulse-inference_1  |[0m   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+[33medgeimpulse-inference_1  |[0m                                  Dload  Upload   Total   Spent    Left  Speed
+[33medgeimpulse-inference_1  |[0m   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  506k    0  506k    0     0   363k      0 --:--:--  0:00:01 --:--:--  363k
+[33medgeimpulse-inference_1  |[0m Archive:  wasm.zip
+[33medgeimpulse-inference_1  |[0m   inflating: edge-impulse-standalone.wasm  
+[33medgeimpulse-inference_1  |[0m   inflating: edge-impulse-standalone.js  
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m > edgeimpulse-inference-wasm@1.0.0 start
+[33medgeimpulse-inference_1  |[0m > node server.js
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m npm notice 
+[33medgeimpulse-inference_1  |[0m npm notice New minor version of npm available! 7.5.3 -> 7.11.1
+[33medgeimpulse-inference_1  |[0m npm notice Changelog: <https://github.com/npm/cli/releases/tag/v7.11.1>
+[33medgeimpulse-inference_1  |[0m npm notice Run `npm install -g npm@7.11.1` to update!
+[33medgeimpulse-inference_1  |[0m npm notice 
+[33medgeimpulse-inference_1  |[0m npm ERR! path /usr/src/app
+[33medgeimpulse-inference_1  |[0m npm ERR! command failed
+[33medgeimpulse-inference_1  |[0m npm ERR! signal SIGTERM
+[33medgeimpulse-inference_1  |[0m npm ERR! command sh -c node server.js
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m npm ERR! A complete log of this run can be found in:
+[33medgeimpulse-inference_1  |[0m npm ERR!     /root/.npm/_logs/2021-04-24T04_12_52_249Z-debug.log
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m > edgeimpulse-inference-wasm@1.0.0 prestart
+[33medgeimpulse-inference_1  |[0m > sh ./downloadWasm.sh
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m 670188
+[33medgeimpulse-inference_1  |[0m   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+[33medgeimpulse-inference_1  |[0m                                  Dload  Upload   Total   Spent    Left  Speed
+[33medgeimpulse-inference_1  |[0m   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   193  100   193    0     0    325      0 --:--:-- --:--:-- --:--:--   324100   193  100   193    0     0    325      0 --:--:-- --:--:-- --:--:--   324
+[33medgeimpulse-inference_1  |[0m   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+[33medgeimpulse-inference_1  |[0m                                  Dload  Upload   Total   Spent    Left  Speed
+[33medgeimpulse-inference_1  |[0m   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 28760    0 28760    0     0  35073      0 --:--:-- --:--:-- --:--:-- 35030100  506k    0  506k    0     0   407k      0 --:--:--  0:00:01 --:--:--  408k
+[33medgeimpulse-inference_1  |[0m Archive:  wasm.zip
+[33medgeimpulse-inference_1  |[0m   inflating: edge-impulse-standalone.wasm  
+[33medgeimpulse-inference_1  |[0m   inflating: edge-impulse-standalone.js  
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m > edgeimpulse-inference-wasm@1.0.0 start
+[33medgeimpulse-inference_1  |[0m > node server.js
+[33medgeimpulse-inference_1  |[0m 
+[36mbalena-cam_1             |[0m Video device is ready
+[36mbalena-cam_1             |[0m 
+[36mbalena-cam_1             |[0m #############################################################
+[36mbalena-cam_1             |[0m Authorization is disabled.
+[36mbalena-cam_1             |[0m Anyone can access your balenaCam, using the device's URL!
+[36mbalena-cam_1             |[0m Set the username and password environment variables 
+[36mbalena-cam_1             |[0m to enable authorization.
+[36mbalena-cam_1             |[0m For more info visit: 
+[36mbalena-cam_1             |[0m https://github.com/balena-io-playground/balena-cam
+[36mbalena-cam_1             |[0m #############################################################
+[36mbalena-cam_1             |[0m 
+[36mbalena-cam_1             |[0m ======== Running on http://0.0.0.0:80 ========
+[36mbalena-cam_1             |[0m (Press CTRL+C to quit)
+[36mbalena-cam_1             |[0m Video device is ready
+[36mbalena-cam_1             |[0m 
+[36mbalena-cam_1             |[0m #############################################################
+[36mbalena-cam_1             |[0m Authorization is disabled.
+[36mbalena-cam_1             |[0m Anyone can access your balenaCam, using the device's URL!
+[36mbalena-cam_1             |[0m Set the username and password environment variables 
+[36mbalena-cam_1             |[0m to enable authorization.
+[36mbalena-cam_1             |[0m For more info visit: 
+[36mbalena-cam_1             |[0m https://github.com/balena-io-playground/balena-cam
+[36mbalena-cam_1             |[0m #############################################################
+[36mbalena-cam_1             |[0m 
+[36mbalena-cam_1             |[0m ======== Running on http://0.0.0.0:80 ========
+[36mbalena-cam_1             |[0m (Press CTRL+C to quit)
+[36mbalena-cam_1             |[0m Video device is ready
+[36mbalena-cam_1             |[0m 
+[36mbalena-cam_1             |[0m #############################################################
+[36mbalena-cam_1             |[0m Authorization is disabled.
+[36mbalena-cam_1             |[0m Anyone can access your balenaCam, using the device's URL!
+[36mbalena-cam_1             |[0m Set the username and password environment variables 
+[36mbalena-cam_1             |[0m to enable authorization.
+[36mbalena-cam_1             |[0m For more info visit: 
+[36mbalena-cam_1             |[0m https://github.com/balena-io-playground/balena-cam
+[36mbalena-cam_1             |[0m #############################################################
+[36mbalena-cam_1             |[0m 
+[36mbalena-cam_1             |[0m ======== Running on http://0.0.0.0:80 ========
+[36mbalena-cam_1             |[0m (Press CTRL+C to quit)
+[36mbalena-cam_1             |[0m Video device is ready
+[36mbalena-cam_1             |[0m 
+[36mbalena-cam_1             |[0m #############################################################
+[36mbalena-cam_1             |[0m Authorization is disabled.
+[36mbalena-cam_1             |[0m Anyone can access your balenaCam, using the device's URL!
+[36mbalena-cam_1             |[0m Set the username and password environment variables 
+[36mbalena-cam_1             |[0m to enable authorization.
+[36mbalena-cam_1             |[0m For more info visit: 
+[36mbalena-cam_1             |[0m https://github.com/balena-io-playground/balena-cam
+[36mbalena-cam_1             |[0m #############################################################
+[36mbalena-cam_1             |[0m 
+[36mbalena-cam_1             |[0m ======== Running on http://0.0.0.0:80 ========
+[36mbalena-cam_1             |[0m (Press CTRL+C to quit)
+[33medgeimpulse-inference_1  |[0m npm ERR! path /usr/src/app
+[33medgeimpulse-inference_1  |[0m npm ERR! path /usr/src/app
+[33medgeimpulse-inference_1  |[0m npm ERR! path /usr/src/app
+[33medgeimpulse-inference_1  |[0m npm ERR! command failed
+[33medgeimpulse-inference_1  |[0m npm ERR! signal SIGTERM
+[33medgeimpulse-inference_1  |[0m npm ERR! command sh -c node server.js
+[33medgeimpulse-inference_1  |[0m npm ERR! command failed
+[33medgeimpulse-inference_1  |[0m npm ERR! command failed
+[33medgeimpulse-inference_1  |[0m npm ERR! signal SIGTERM
+[33medgeimpulse-inference_1  |[0m npm ERR! signal SIGTERM
+[33medgeimpulse-inference_1  |[0m npm ERR! command sh -c node server.js
+[33medgeimpulse-inference_1  |[0m npm ERR! command sh -c node server.js
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m npm ERR! A complete log of this run can be found in:
+[33medgeimpulse-inference_1  |[0m npm ERR!     /root/.npm/_logs/2021-04-24T11_55_04_339Z-debug.log
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m npm ERR! A complete log of this run can be found in:
+[33medgeimpulse-inference_1  |[0m npm ERR!     /root/.npm/_logs/2021-04-24T11_55_04_339Z-debug.log
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m npm ERR! A complete log of this run can be found in:
+[33medgeimpulse-inference_1  |[0m npm ERR!     /root/.npm/_logs/2021-04-24T11_55_04_339Z-debug.log
+Attaching to webrtc-face-detection_edgeimpulse-inference_1, webrtc-face-detection_balena-cam_1
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m > edgeimpulse-inference-wasm@1.0.0 prestart
+[33medgeimpulse-inference_1  |[0m > sh ./downloadWasm.sh
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m 670188
+[33medgeimpulse-inference_1  |[0m   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+[33medgeimpulse-inference_1  |[0m                                  Dload  Upload   Total   Spent    Left  Speed
+[33medgeimpulse-inference_1  |[0m   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   193  100   193    0     0    265      0 --:--:-- --:--:-- --:--:--   265
+[33medgeimpulse-inference_1  |[0m   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+[33medgeimpulse-inference_1  |[0m                                  Dload  Upload   Total   Spent    Left  Speed
+[33medgeimpulse-inference_1  |[0m   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0100  506k    0  506k    0     0   266k      0 --:--:--  0:00:01 --:--:--  266k
+[33medgeimpulse-inference_1  |[0m Archive:  wasm.zip
+[33medgeimpulse-inference_1  |[0m   inflating: edge-impulse-standalone.wasm  
+[33medgeimpulse-inference_1  |[0m   inflating: edge-impulse-standalone.js  
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m > edgeimpulse-inference-wasm@1.0.0 start
+[33medgeimpulse-inference_1  |[0m > node server.js
+[33medgeimpulse-inference_1  |[0m 
+Attaching to webrtc-face-detection_edgeimpulse-inference_1, webrtc-face-detection_balena-cam_1
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m > edgeimpulse-inference-wasm@1.0.0 prestart
+[33medgeimpulse-inference_1  |[0m > sh ./downloadWasm.sh
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m 670188
+[33medgeimpulse-inference_1  |[0m   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+[33medgeimpulse-inference_1  |[0m                                  Dload  Upload   Total   Spent    Left  Speed
+[33medgeimpulse-inference_1  |[0m   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   193  100   193    0     0    265      0 --:--:-- --:--:-- --:--:--   265
+[33medgeimpulse-inference_1  |[0m   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+[33medgeimpulse-inference_1  |[0m                                  Dload  Upload   Total   Spent    Left  Speed
+[33medgeimpulse-inference_1  |[0m   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0100  506k    0  506k    0     0   266k      0 --:--:--  0:00:01 --:--:--  266k
+[33medgeimpulse-inference_1  |[0m Archive:  wasm.zip
+[33medgeimpulse-inference_1  |[0m   inflating: edge-impulse-standalone.wasm  
+[33medgeimpulse-inference_1  |[0m   inflating: edge-impulse-standalone.js  
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m > edgeimpulse-inference-wasm@1.0.0 start
+[33medgeimpulse-inference_1  |[0m > node server.js
+[33medgeimpulse-inference_1  |[0m 
+Attaching to webrtc-face-detection_edgeimpulse-inference_1, webrtc-face-detection_balena-cam_1
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m > edgeimpulse-inference-wasm@1.0.0 prestart
+[33medgeimpulse-inference_1  |[0m > sh ./downloadWasm.sh
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m 670188
+[33medgeimpulse-inference_1  |[0m   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+[33medgeimpulse-inference_1  |[0m                                  Dload  Upload   Total   Spent    Left  Speed
+[33medgeimpulse-inference_1  |[0m   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   193  100   193    0     0    265      0 --:--:-- --:--:-- --:--:--   265
+[33medgeimpulse-inference_1  |[0m   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+[33medgeimpulse-inference_1  |[0m                                  Dload  Upload   Total   Spent    Left  Speed
+[33medgeimpulse-inference_1  |[0m   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0100  506k    0  506k    0     0   266k      0 --:--:--  0:00:01 --:--:--  266k
+[33medgeimpulse-inference_1  |[0m Archive:  wasm.zip
+[33medgeimpulse-inference_1  |[0m   inflating: edge-impulse-standalone.wasm  
+[33medgeimpulse-inference_1  |[0m   inflating: edge-impulse-standalone.js  
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m > edgeimpulse-inference-wasm@1.0.0 start
+[33medgeimpulse-inference_1  |[0m > node server.js
+[33medgeimpulse-inference_1  |[0m 
+[36mbalena-cam_1             |[0m Error handling request
+[36mbalena-cam_1             |[0m Traceback (most recent call last):
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/aiohttp/web_protocol.py", line 422, in _handle_request
+[36mbalena-cam_1             |[0m     resp = await self._request_handler(request)
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/aiohttp/web_app.py", line 499, in _handle
+[36mbalena-cam_1             |[0m     resp = await handler(request)
+[36mbalena-cam_1             |[0m   File "/usr/src/app/server.py", line 278, in peer_camera
+[36mbalena-cam_1             |[0m     await recorder.start()
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/aiortc/rtcpeerconnection.py", line 946, in setRemoteDescription
+[36mbalena-cam_1             |[0m     self.emit("track", event.track)
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/pyee/_base.py", line 113, in emit
+[36mbalena-cam_1             |[0m     handled = self._call_handlers(event, args, kwargs)
+[36mbalena-cam_1             |[0m Error handling request
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/pyee/_base.py", line 96, in _call_handlers
+[36mbalena-cam_1             |[0m     self._emit_run(f, args, kwargs)
+[36mbalena-cam_1             |[0m Traceback (most recent call last):
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/pyee/_asyncio.py", line 42, in _emit_run
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/aiohttp/web_protocol.py", line 422, in _handle_request
+[36mbalena-cam_1             |[0m     self.emit('error', exc)
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/pyee/_base.py", line 116, in emit
+[36mbalena-cam_1             |[0m     resp = await self._request_handler(request)
+[36mbalena-cam_1             |[0m     self._emit_handle_potential_error(event, args[0] if args else None)
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/aiohttp/web_app.py", line 499, in _handle
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/pyee/_base.py", line 86, in _emit_handle_potential_error
+[36mbalena-cam_1             |[0m     resp = await handler(request)
+[36mbalena-cam_1             |[0m     raise error
+[36mbalena-cam_1             |[0m   File "/usr/src/app/server.py", line 278, in peer_camera
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/pyee/_asyncio.py", line 40, in _emit_run
+[36mbalena-cam_1             |[0m     await recorder.start()
+[36mbalena-cam_1             |[0m     coro = f(*args, **kwargs)
+[36mbalena-cam_1             |[0m   File "/usr/src/app/server.py", line 267, in on_track
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/aiortc/rtcpeerconnection.py", line 946, in setRemoteDescription
+[36mbalena-cam_1             |[0m     recorder.addTrack(track)
+[36mbalena-cam_1             |[0m     self.emit("track", event.track)
+[36mbalena-cam_1             |[0m NameError: name 'player' is not defined
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/pyee/_base.py", line 113, in emit
+[36mbalena-cam_1             |[0m     handled = self._call_handlers(event, args, kwargs)
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/pyee/_base.py", line 96, in _call_handlers
+[36mbalena-cam_1             |[0m     self._emit_run(f, args, kwargs)
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/pyee/_asyncio.py", line 42, in _emit_run
+[36mbalena-cam_1             |[0m     self.emit('error', exc)
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/pyee/_base.py", line 116, in emit
+[36mbalena-cam_1             |[0m     self._emit_handle_potential_error(event, args[0] if args else None)
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/pyee/_base.py", line 86, in _emit_handle_potential_error
+[36mbalena-cam_1             |[0m     raise error
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/pyee/_asyncio.py", line 40, in _emit_run
+[36mbalena-cam_1             |[0m     coro = f(*args, **kwargs)
+[36mbalena-cam_1             |[0m   File "/usr/src/app/server.py", line 267, in on_track
+[36mbalena-cam_1             |[0m     recorder.addTrack(track)
+[36mbalena-cam_1             |[0m NameError: name 'player' is not defined
+[36mbalena-cam_1             |[0m Error handling request
+[36mbalena-cam_1             |[0m Traceback (most recent call last):
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/aiohttp/web_protocol.py", line 422, in _handle_request
+[36mbalena-cam_1             |[0m     resp = await self._request_handler(request)
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/aiohttp/web_app.py", line 499, in _handle
+[36mbalena-cam_1             |[0m     resp = await handler(request)
+[36mbalena-cam_1             |[0m   File "/usr/src/app/server.py", line 278, in peer_camera
+[36mbalena-cam_1             |[0m     await recorder.start()
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/aiortc/rtcpeerconnection.py", line 946, in setRemoteDescription
+[36mbalena-cam_1             |[0m     self.emit("track", event.track)
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/pyee/_base.py", line 113, in emit
+[36mbalena-cam_1             |[0m     handled = self._call_handlers(event, args, kwargs)
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/pyee/_base.py", line 96, in _call_handlers
+[36mbalena-cam_1             |[0m     self._emit_run(f, args, kwargs)
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/pyee/_asyncio.py", line 42, in _emit_run
+[36mbalena-cam_1             |[0m     self.emit('error', exc)
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/pyee/_base.py", line 116, in emit
+[36mbalena-cam_1             |[0m     self._emit_handle_potential_error(event, args[0] if args else None)
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/pyee/_base.py", line 86, in _emit_handle_potential_error
+[36mbalena-cam_1             |[0m     raise error
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/pyee/_asyncio.py", line 40, in _emit_run
+[36mbalena-cam_1             |[0m     coro = f(*args, **kwargs)
+[36mbalena-cam_1             |[0m   File "/usr/src/app/server.py", line 267, in on_track
+[36mbalena-cam_1             |[0m     recorder.addTrack(track)
+[36mbalena-cam_1             |[0m NameError: name 'player' is not defined
+[36mbalena-cam_1             |[0m Video device is ready
+[36mbalena-cam_1             |[0m 
+[36mbalena-cam_1             |[0m #############################################################
+[36mbalena-cam_1             |[0m Authorization is disabled.
+[36mbalena-cam_1             |[0m Anyone can access your balenaCam, using the device's URL!
+[36mbalena-cam_1             |[0m Set the username and password environment variables 
+[36mbalena-cam_1             |[0m to enable authorization.
+[36mbalena-cam_1             |[0m For more info visit: 
+[36mbalena-cam_1             |[0m https://github.com/balena-io-playground/balena-cam
+[36mbalena-cam_1             |[0m #############################################################
+[36mbalena-cam_1             |[0m 
+[36mbalena-cam_1             |[0m ======== Running on http://0.0.0.0:80 ========
+[36mbalena-cam_1             |[0m (Press CTRL+C to quit)
+[36mbalena-cam_1             |[0m Track received audio
+[36mbalena-cam_1             |[0m ICE connection state is closed
+[36mbalena-cam_1             |[0m Video device is ready
+[36mbalena-cam_1             |[0m 
+[36mbalena-cam_1             |[0m #############################################################
+[36mbalena-cam_1             |[0m Authorization is disabled.
+[36mbalena-cam_1             |[0m Anyone can access your balenaCam, using the device's URL!
+[36mbalena-cam_1             |[0m Set the username and password environment variables 
+[36mbalena-cam_1             |[0m to enable authorization.
+[36mbalena-cam_1             |[0m For more info visit: 
+[36mbalena-cam_1             |[0m https://github.com/balena-io-playground/balena-cam
+[36mbalena-cam_1             |[0m #############################################################
+[36mbalena-cam_1             |[0m 
+[36mbalena-cam_1             |[0m ======== Running on http://0.0.0.0:80 ========
+[36mbalena-cam_1             |[0m (Press CTRL+C to quit)
+[36mbalena-cam_1             |[0m Track received audio
+[36mbalena-cam_1             |[0m ICE connection state is closed
+[36mbalena-cam_1             |[0m Video device is ready
+[36mbalena-cam_1             |[0m 
+[36mbalena-cam_1             |[0m #############################################################
+[36mbalena-cam_1             |[0m Authorization is disabled.
+[36mbalena-cam_1             |[0m Anyone can access your balenaCam, using the device's URL!
+[36mbalena-cam_1             |[0m Set the username and password environment variables 
+[36mbalena-cam_1             |[0m to enable authorization.
+[36mbalena-cam_1             |[0m For more info visit: 
+[36mbalena-cam_1             |[0m https://github.com/balena-io-playground/balena-cam
+[36mbalena-cam_1             |[0m #############################################################
+[36mbalena-cam_1             |[0m 
+[36mbalena-cam_1             |[0m ======== Running on http://0.0.0.0:80 ========
+[36mbalena-cam_1             |[0m (Press CTRL+C to quit)
+[36mbalena-cam_1             |[0m Track received audio
+[36mbalena-cam_1             |[0m ICE connection state is closed
+[33medgeimpulse-inference_1  |[0m npm notice 
+[33medgeimpulse-inference_1  |[0m npm notice New minor version of npm available! 7.5.3 -> 7.11.1
+[33medgeimpulse-inference_1  |[0m npm notice Changelog: <https://github.com/npm/cli/releases/tag/v7.11.1>
+[33medgeimpulse-inference_1  |[0m npm notice Run `npm install -g npm@7.11.1` to update!
+[33medgeimpulse-inference_1  |[0m npm notice 
+[33medgeimpulse-inference_1  |[0m npm notice 
+[33medgeimpulse-inference_1  |[0m npm notice New minor version of npm available! 7.5.3 -> 7.11.1
+[33medgeimpulse-inference_1  |[0m npm notice Changelog: <https://github.com/npm/cli/releases/tag/v7.11.1>
+[33medgeimpulse-inference_1  |[0m npm notice Run `npm install -g npm@7.11.1` to update!
+[33medgeimpulse-inference_1  |[0m npm notice 
+[33medgeimpulse-inference_1  |[0m npm notice 
+[33medgeimpulse-inference_1  |[0m npm notice New minor version of npm available! 7.5.3 -> 7.11.1
+[33medgeimpulse-inference_1  |[0m npm notice Changelog: <https://github.com/npm/cli/releases/tag/v7.11.1>
+[33medgeimpulse-inference_1  |[0m npm notice Run `npm install -g npm@7.11.1` to update!
+[33medgeimpulse-inference_1  |[0m npm notice 
+[33medgeimpulse-inference_1  |[0m npm ERR! path /usr/src/app
+[33medgeimpulse-inference_1  |[0m npm ERR! path /usr/src/app
+[33medgeimpulse-inference_1  |[0m npm ERR! path /usr/src/app
+[33medgeimpulse-inference_1  |[0m npm ERR! command failed
+[33medgeimpulse-inference_1  |[0m npm ERR! signal SIGTERM
+[33medgeimpulse-inference_1  |[0m npm ERR! command sh -c node server.js
+[33medgeimpulse-inference_1  |[0m npm ERR! command failed
+[33medgeimpulse-inference_1  |[0m npm ERR! signal SIGTERM
+[33medgeimpulse-inference_1  |[0m npm ERR! command sh -c node server.js
+[33medgeimpulse-inference_1  |[0m npm ERR! command failed
+[33medgeimpulse-inference_1  |[0m npm ERR! signal SIGTERM
+[33medgeimpulse-inference_1  |[0m npm ERR! command sh -c node server.js
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m npm ERR! A complete log of this run can be found in:
+[33medgeimpulse-inference_1  |[0m npm ERR!     /root/.npm/_logs/2021-04-24T14_02_09_132Z-debug.log
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m npm ERR! A complete log of this run can be found in:
+[33medgeimpulse-inference_1  |[0m npm ERR!     /root/.npm/_logs/2021-04-24T14_02_09_132Z-debug.log
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m npm ERR! A complete log of this run can be found in:
+[33medgeimpulse-inference_1  |[0m npm ERR!     /root/.npm/_logs/2021-04-24T14_02_09_132Z-debug.log
+Attaching to webrtc-face-detection_edgeimpulse-inference_1, webrtc-face-detection_balena-cam_1
+[36mbalena-cam_1             |[0m Error handling request
+[36mbalena-cam_1             |[0m Traceback (most recent call last):
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/aiohttp/web_protocol.py", line 422, in _handle_request
+[36mbalena-cam_1             |[0m     resp = await self._request_handler(request)
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/aiohttp/web_app.py", line 499, in _handle
+[36mbalena-cam_1             |[0m     resp = await handler(request)
+[36mbalena-cam_1             |[0m   File "/usr/src/app/server.py", line 278, in peer_camera
+[36mbalena-cam_1             |[0m     await recorder.start()
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/aiortc/rtcpeerconnection.py", line 946, in setRemoteDescription
+[36mbalena-cam_1             |[0m     self.emit("track", event.track)
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/pyee/_base.py", line 113, in emit
+[36mbalena-cam_1             |[0m     handled = self._call_handlers(event, args, kwargs)
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/pyee/_base.py", line 96, in _call_handlers
+[36mbalena-cam_1             |[0m     self._emit_run(f, args, kwargs)
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/pyee/_asyncio.py", line 42, in _emit_run
+[36mbalena-cam_1             |[0m     self.emit('error', exc)
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/pyee/_base.py", line 116, in emit
+[36mbalena-cam_1             |[0m     self._emit_handle_potential_error(event, args[0] if args else None)
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/pyee/_base.py", line 86, in _emit_handle_potential_error
+[36mbalena-cam_1             |[0m     raise error
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/pyee/_asyncio.py", line 40, in _emit_run
+[36mbalena-cam_1             |[0m     coro = f(*args, **kwargs)
+[36mbalena-cam_1             |[0m   File "/usr/src/app/server.py", line 267, in on_track
+[36mbalena-cam_1             |[0m     recorder.addTrack(track)
+[36mbalena-cam_1             |[0m NameError: name 'player' is not defined
+[36mbalena-cam_1             |[0m Video device is ready
+[36mbalena-cam_1             |[0m 
+[36mbalena-cam_1             |[0m #############################################################
+[36mbalena-cam_1             |[0m Authorization is disabled.
+[36mbalena-cam_1             |[0m Anyone can access your balenaCam, using the device's URL!
+[36mbalena-cam_1             |[0m Set the username and password environment variables 
+[36mbalena-cam_1             |[0m to enable authorization.
+[36mbalena-cam_1             |[0m For more info visit: 
+[36mbalena-cam_1             |[0m https://github.com/balena-io-playground/balena-cam
+[36mbalena-cam_1             |[0m #############################################################
+[36mbalena-cam_1             |[0m 
+[36mbalena-cam_1             |[0m ======== Running on http://0.0.0.0:80 ========
+[36mbalena-cam_1             |[0m (Press CTRL+C to quit)
+[36mbalena-cam_1             |[0m Track received audio
+[36mbalena-cam_1             |[0m ICE connection state is closed
+[36mbalena-cam_1             |[0m Video device is ready
+[36mbalena-cam_1             |[0m 
+[36mbalena-cam_1             |[0m #############################################################
+[36mbalena-cam_1             |[0m Authorization is disabled.
+[36mbalena-cam_1             |[0m Anyone can access your balenaCam, using the device's URL!
+[36mbalena-cam_1             |[0m Set the username and password environment variables 
+[36mbalena-cam_1             |[0m to enable authorization.
+[36mbalena-cam_1             |[0m For more info visit: 
+[36mbalena-cam_1             |[0m https://github.com/balena-io-playground/balena-cam
+[36mbalena-cam_1             |[0m #############################################################
+[36mbalena-cam_1             |[0m 
+[36mbalena-cam_1             |[0m ======== Running on http://0.0.0.0:80 ========
+[36mbalena-cam_1             |[0m (Press CTRL+C to quit)
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m > edgeimpulse-inference-wasm@1.0.0 prestart
+[33medgeimpulse-inference_1  |[0m > sh ./downloadWasm.sh
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m 670188
+[33medgeimpulse-inference_1  |[0m   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+[33medgeimpulse-inference_1  |[0m                                  Dload  Upload   Total   Spent    Left  Speed
+[33medgeimpulse-inference_1  |[0m   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   193  100   193    0     0    265      0 --:--:-- --:--:-- --:--:--   265
+[33medgeimpulse-inference_1  |[0m   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+[33medgeimpulse-inference_1  |[0m                                  Dload  Upload   Total   Spent    Left  Speed
+[33medgeimpulse-inference_1  |[0m   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0100  506k    0  506k    0     0   266k      0 --:--:--  0:00:01 --:--:--  266k
+[33medgeimpulse-inference_1  |[0m Archive:  wasm.zip
+[33medgeimpulse-inference_1  |[0m   inflating: edge-impulse-standalone.wasm  
+[33medgeimpulse-inference_1  |[0m   inflating: edge-impulse-standalone.js  
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m > edgeimpulse-inference-wasm@1.0.0 start
+[33medgeimpulse-inference_1  |[0m > node server.js
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m npm notice 
+[33medgeimpulse-inference_1  |[0m npm notice New minor version of npm available! 7.5.3 -> 7.11.1
+[33medgeimpulse-inference_1  |[0m npm notice Changelog: <https://github.com/npm/cli/releases/tag/v7.11.1>
+[33medgeimpulse-inference_1  |[0m npm notice Run `npm install -g npm@7.11.1` to update!
+[33medgeimpulse-inference_1  |[0m npm notice 
+[33medgeimpulse-inference_1  |[0m npm ERR! path /usr/src/app
+[33medgeimpulse-inference_1  |[0m npm ERR! command failed
+[33medgeimpulse-inference_1  |[0m npm ERR! signal SIGTERM
+[33medgeimpulse-inference_1  |[0m npm ERR! command sh -c node server.js
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m npm ERR! A complete log of this run can be found in:
+[33medgeimpulse-inference_1  |[0m npm ERR!     /root/.npm/_logs/2021-04-24T14_02_09_132Z-debug.log
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m > edgeimpulse-inference-wasm@1.0.0 prestart
+[33medgeimpulse-inference_1  |[0m > sh ./downloadWasm.sh
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m 670188
+[33medgeimpulse-inference_1  |[0m   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+[33medgeimpulse-inference_1  |[0m                                  Dload  Upload   Total   Spent    Left  Speed
+[33medgeimpulse-inference_1  |[0m   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   193  100   193    0     0    209      0 --:--:-- --:--:-- --:--:--   209
+[33medgeimpulse-inference_1  |[0m   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+[33medgeimpulse-inference_1  |[0m                                  Dload  Upload   Total   Spent    Left  Speed
+[33medgeimpulse-inference_1  |[0m   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  205k    0  205k    0     0   136k      0 --:--:--  0:00:01 --:--:--  135k100  506k    0  506k    0     0   298k      0 --:--:--  0:00:01 --:--:--  298k
+[33medgeimpulse-inference_1  |[0m Archive:  wasm.zip
+[33medgeimpulse-inference_1  |[0m   inflating: edge-impulse-standalone.wasm  
+[33medgeimpulse-inference_1  |[0m   inflating: edge-impulse-standalone.js  
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m > edgeimpulse-inference-wasm@1.0.0 start
+[33medgeimpulse-inference_1  |[0m > node server.js
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m npm ERR! path /usr/src/app
+[33medgeimpulse-inference_1  |[0m npm ERR! command failed
+[33medgeimpulse-inference_1  |[0m npm ERR! signal SIGTERM
+[33medgeimpulse-inference_1  |[0m npm ERR! command sh -c node server.js
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m npm ERR! A complete log of this run can be found in:
+[33medgeimpulse-inference_1  |[0m npm ERR!     /root/.npm/_logs/2021-04-24T14_02_25_666Z-debug.log
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m > edgeimpulse-inference-wasm@1.0.0 prestart
+[33medgeimpulse-inference_1  |[0m > sh ./downloadWasm.sh
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m 670188
+[33medgeimpulse-inference_1  |[0m   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+[33medgeimpulse-inference_1  |[0m                                  Dload  Upload   Total   Spent    Left  Speed
+[33medgeimpulse-inference_1  |[0m   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   193  100   193    0     0    263      0 --:--:-- --:--:-- --:--:--   263100   193  100   193    0     0    263      0 --:--:-- --:--:-- --:--:--   263
+[33medgeimpulse-inference_1  |[0m   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+[33medgeimpulse-inference_1  |[0m                                  Dload  Upload   Total   Spent    Left  Speed
+[33medgeimpulse-inference_1  |[0m   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  506k    0  506k    0     0   299k      0 --:--:--  0:00:01 --:--:--  299k
+[33medgeimpulse-inference_1  |[0m Archive:  wasm.zip
+[33medgeimpulse-inference_1  |[0m   inflating: edge-impulse-standalone.wasm  
+[33medgeimpulse-inference_1  |[0m   inflating: edge-impulse-standalone.js  
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m > edgeimpulse-inference-wasm@1.0.0 start
+[33medgeimpulse-inference_1  |[0m > node server.js
+[33medgeimpulse-inference_1  |[0m 
+Attaching to webrtc-face-detection_edgeimpulse-inference_1, webrtc-face-detection_balena-cam_1
+[36mbalena-cam_1             |[0m Error handling request
+[36mbalena-cam_1             |[0m Traceback (most recent call last):
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/aiohttp/web_protocol.py", line 422, in _handle_request
+[36mbalena-cam_1             |[0m     resp = await self._request_handler(request)
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/aiohttp/web_app.py", line 499, in _handle
+[36mbalena-cam_1             |[0m     resp = await handler(request)
+[36mbalena-cam_1             |[0m   File "/usr/src/app/server.py", line 278, in peer_camera
+[36mbalena-cam_1             |[0m     await recorder.start()
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/aiortc/rtcpeerconnection.py", line 946, in setRemoteDescription
+[36mbalena-cam_1             |[0m     self.emit("track", event.track)
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/pyee/_base.py", line 113, in emit
+[36mbalena-cam_1             |[0m     handled = self._call_handlers(event, args, kwargs)
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/pyee/_base.py", line 96, in _call_handlers
+[36mbalena-cam_1             |[0m     self._emit_run(f, args, kwargs)
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/pyee/_asyncio.py", line 42, in _emit_run
+[36mbalena-cam_1             |[0m     self.emit('error', exc)
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/pyee/_base.py", line 116, in emit
+[36mbalena-cam_1             |[0m     self._emit_handle_potential_error(event, args[0] if args else None)
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/pyee/_base.py", line 86, in _emit_handle_potential_error
+[36mbalena-cam_1             |[0m     raise error
+[36mbalena-cam_1             |[0m   File "/usr/local/lib/python3.7/dist-packages/pyee/_asyncio.py", line 40, in _emit_run
+[36mbalena-cam_1             |[0m     coro = f(*args, **kwargs)
+[36mbalena-cam_1             |[0m   File "/usr/src/app/server.py", line 267, in on_track
+[36mbalena-cam_1             |[0m     recorder.addTrack(track)
+[36mbalena-cam_1             |[0m NameError: name 'player' is not defined
+[36mbalena-cam_1             |[0m Video device is ready
+[36mbalena-cam_1             |[0m 
+[36mbalena-cam_1             |[0m #############################################################
+[36mbalena-cam_1             |[0m Authorization is disabled.
+[36mbalena-cam_1             |[0m Anyone can access your balenaCam, using the device's URL!
+[36mbalena-cam_1             |[0m Set the username and password environment variables 
+[36mbalena-cam_1             |[0m to enable authorization.
+[36mbalena-cam_1             |[0m For more info visit: 
+[36mbalena-cam_1             |[0m https://github.com/balena-io-playground/balena-cam
+[36mbalena-cam_1             |[0m #############################################################
+[36mbalena-cam_1             |[0m 
+[36mbalena-cam_1             |[0m ======== Running on http://0.0.0.0:80 ========
+[36mbalena-cam_1             |[0m (Press CTRL+C to quit)
+[36mbalena-cam_1             |[0m Track received audio
+[36mbalena-cam_1             |[0m ICE connection state is closed
+[36mbalena-cam_1             |[0m Video device is ready
+[36mbalena-cam_1             |[0m 
+[36mbalena-cam_1             |[0m #############################################################
+[36mbalena-cam_1             |[0m Authorization is disabled.
+[36mbalena-cam_1             |[0m Anyone can access your balenaCam, using the device's URL!
+[36mbalena-cam_1             |[0m Set the username and password environment variables 
+[36mbalena-cam_1             |[0m to enable authorization.
+[36mbalena-cam_1             |[0m For more info visit: 
+[36mbalena-cam_1             |[0m https://github.com/balena-io-playground/balena-cam
+[36mbalena-cam_1             |[0m #############################################################
+[36mbalena-cam_1             |[0m 
+[36mbalena-cam_1             |[0m ======== Running on http://0.0.0.0:80 ========
+[36mbalena-cam_1             |[0m (Press CTRL+C to quit)
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m > edgeimpulse-inference-wasm@1.0.0 prestart
+[33medgeimpulse-inference_1  |[0m > sh ./downloadWasm.sh
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m 670188
+[33medgeimpulse-inference_1  |[0m   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+[33medgeimpulse-inference_1  |[0m                                  Dload  Upload   Total   Spent    Left  Speed
+[33medgeimpulse-inference_1  |[0m   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   193  100   193    0     0    265      0 --:--:-- --:--:-- --:--:--   265
+[33medgeimpulse-inference_1  |[0m   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+[33medgeimpulse-inference_1  |[0m                                  Dload  Upload   Total   Spent    Left  Speed
+[33medgeimpulse-inference_1  |[0m   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0100  506k    0  506k    0     0   266k      0 --:--:--  0:00:01 --:--:--  266k
+[33medgeimpulse-inference_1  |[0m Archive:  wasm.zip
+[33medgeimpulse-inference_1  |[0m   inflating: edge-impulse-standalone.wasm  
+[33medgeimpulse-inference_1  |[0m   inflating: edge-impulse-standalone.js  
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m > edgeimpulse-inference-wasm@1.0.0 start
+[33medgeimpulse-inference_1  |[0m > node server.js
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m npm notice 
+[33medgeimpulse-inference_1  |[0m npm notice New minor version of npm available! 7.5.3 -> 7.11.1
+[33medgeimpulse-inference_1  |[0m npm notice Changelog: <https://github.com/npm/cli/releases/tag/v7.11.1>
+[33medgeimpulse-inference_1  |[0m npm notice Run `npm install -g npm@7.11.1` to update!
+[33medgeimpulse-inference_1  |[0m npm notice 
+[33medgeimpulse-inference_1  |[0m npm ERR! path /usr/src/app
+[33medgeimpulse-inference_1  |[0m npm ERR! command failed
+[33medgeimpulse-inference_1  |[0m npm ERR! signal SIGTERM
+[33medgeimpulse-inference_1  |[0m npm ERR! command sh -c node server.js
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m npm ERR! A complete log of this run can be found in:
+[33medgeimpulse-inference_1  |[0m npm ERR!     /root/.npm/_logs/2021-04-24T14_02_09_132Z-debug.log
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m > edgeimpulse-inference-wasm@1.0.0 prestart
+[33medgeimpulse-inference_1  |[0m > sh ./downloadWasm.sh
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m 670188
+[33medgeimpulse-inference_1  |[0m   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+[33medgeimpulse-inference_1  |[0m                                  Dload  Upload   Total   Spent    Left  Speed
+[33medgeimpulse-inference_1  |[0m   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   193  100   193    0     0    209      0 --:--:-- --:--:-- --:--:--   209
+[33medgeimpulse-inference_1  |[0m   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+[33medgeimpulse-inference_1  |[0m                                  Dload  Upload   Total   Spent    Left  Speed
+[33medgeimpulse-inference_1  |[0m   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  205k    0  205k    0     0   136k      0 --:--:--  0:00:01 --:--:--  135k100  506k    0  506k    0     0   298k      0 --:--:--  0:00:01 --:--:--  298k
+[33medgeimpulse-inference_1  |[0m Archive:  wasm.zip
+[33medgeimpulse-inference_1  |[0m   inflating: edge-impulse-standalone.wasm  
+[33medgeimpulse-inference_1  |[0m   inflating: edge-impulse-standalone.js  
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m > edgeimpulse-inference-wasm@1.0.0 start
+[33medgeimpulse-inference_1  |[0m > node server.js
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m npm ERR! path /usr/src/app
+[33medgeimpulse-inference_1  |[0m npm ERR! command failed
+[33medgeimpulse-inference_1  |[0m npm ERR! signal SIGTERM
+[33medgeimpulse-inference_1  |[0m npm ERR! command sh -c node server.js
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m npm ERR! A complete log of this run can be found in:
+[33medgeimpulse-inference_1  |[0m npm ERR!     /root/.npm/_logs/2021-04-24T14_02_25_666Z-debug.log
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m > edgeimpulse-inference-wasm@1.0.0 prestart
+[33medgeimpulse-inference_1  |[0m > sh ./downloadWasm.sh
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m 670188
+[33medgeimpulse-inference_1  |[0m   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+[33medgeimpulse-inference_1  |[0m                                  Dload  Upload   Total   Spent    Left  Speed
+[33medgeimpulse-inference_1  |[0m   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   193  100   193    0     0    263      0 --:--:-- --:--:-- --:--:--   263100   193  100   193    0     0    263      0 --:--:-- --:--:-- --:--:--   263
+[33medgeimpulse-inference_1  |[0m   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+[33medgeimpulse-inference_1  |[0m                                  Dload  Upload   Total   Spent    Left  Speed
+[33medgeimpulse-inference_1  |[0m   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  506k    0  506k    0     0   299k      0 --:--:--  0:00:01 --:--:--  299k
+[33medgeimpulse-inference_1  |[0m Archive:  wasm.zip
+[33medgeimpulse-inference_1  |[0m   inflating: edge-impulse-standalone.wasm  
+[33medgeimpulse-inference_1  |[0m   inflating: edge-impulse-standalone.js  
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m > edgeimpulse-inference-wasm@1.0.0 start
+[33medgeimpulse-inference_1  |[0m > node server.js
+[33medgeimpulse-inference_1  |[0m 
+[36mbalena-cam_1             |[0m Video device is ready
+[36mbalena-cam_1             |[0m 
+[36mbalena-cam_1             |[0m #############################################################
+[36mbalena-cam_1             |[0m Authorization is disabled.
+[36mbalena-cam_1             |[0m Anyone can access your balenaCam, using the device's URL!
+[36mbalena-cam_1             |[0m Set the username and password environment variables 
+[36mbalena-cam_1             |[0m to enable authorization.
+[36mbalena-cam_1             |[0m For more info visit: 
+[36mbalena-cam_1             |[0m https://github.com/balena-io-playground/balena-cam
+[36mbalena-cam_1             |[0m #############################################################
+[36mbalena-cam_1             |[0m 
+[36mbalena-cam_1             |[0m ======== Running on http://0.0.0.0:80 ========
+[36mbalena-cam_1             |[0m (Press CTRL+C to quit)
+[36mbalena-cam_1             |[0m Video device is ready
+[36mbalena-cam_1             |[0m 
+[36mbalena-cam_1             |[0m #############################################################
+[36mbalena-cam_1             |[0m Authorization is disabled.
+[36mbalena-cam_1             |[0m Anyone can access your balenaCam, using the device's URL!
+[36mbalena-cam_1             |[0m Set the username and password environment variables 
+[36mbalena-cam_1             |[0m to enable authorization.
+[36mbalena-cam_1             |[0m For more info visit: 
+[36mbalena-cam_1             |[0m https://github.com/balena-io-playground/balena-cam
+[36mbalena-cam_1             |[0m #############################################################
+[36mbalena-cam_1             |[0m 
+[36mbalena-cam_1             |[0m ======== Running on http://0.0.0.0:80 ========
+[36mbalena-cam_1             |[0m (Press CTRL+C to quit)
+[36mwebrtc-face-detection_balena-cam_1 exited with code 0
+[0m[36mwebrtc-face-detection_balena-cam_1 exited with code 0
+[0m[33medgeimpulse-inference_1  |[0m npm ERR! path /usr/src/app
+[33medgeimpulse-inference_1  |[0m npm ERR! path /usr/src/app
+[33medgeimpulse-inference_1  |[0m npm ERR! command failed
+[33medgeimpulse-inference_1  |[0m npm ERR! signal SIGTERM
+[33medgeimpulse-inference_1  |[0m npm ERR! command sh -c node server.js
+[33medgeimpulse-inference_1  |[0m npm ERR! command failed
+[33medgeimpulse-inference_1  |[0m npm ERR! signal SIGTERM
+[33medgeimpulse-inference_1  |[0m npm ERR! command sh -c node server.js
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m npm ERR! A complete log of this run can be found in:
+[33medgeimpulse-inference_1  |[0m 
+[33medgeimpulse-inference_1  |[0m npm ERR! A complete log of this run can be found in:
+[33medgeimpulse-inference_1  |[0m npm ERR!     /root/.npm/_logs/2021-04-24T15_07_09_448Z-debug.log
+[33medgeimpulse-inference_1  |[0m npm ERR!     /root/.npm/_logs/2021-04-24T15_07_09_448Z-debug.log
+[33mwebrtc-face-detection_edgeimpulse-inference_1 exited with code 1
+[0m[33mwebrtc-face-detection_edgeimpulse-inference_1 exited with code 1
+[0m

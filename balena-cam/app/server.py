@@ -1,15 +1,21 @@
-import asyncio, json, os, cv2, platform, sys
+import asyncio, json, os, cv2, platform, sys, io
 from websocket import create_connection
 import base64
+import json
+import logging
 from time import sleep
 from aiohttp import web
 from av import VideoFrame
 from aiortc import RTCPeerConnection, RTCSessionDescription, VideoStreamTrack, RTCIceServer, RTCConfiguration, MediaStreamTrack
 from aiortc.contrib.media import MediaBlackhole, MediaPlayer, MediaRecorder
 from aiohttp_basicauth import BasicAuthMiddleware
-import logging
+from imageio import imread
 
-logging.basicConfig(level=logging.DEBUG)
+#import ssl
+
+#ssl_ctx = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
+#ssl_ctx.load_cert_chain('domain_srv.crt', 'domain_srv.key')
+
 
 
 class CameraDevice():
@@ -29,21 +35,22 @@ class CameraDevice():
             M = cv2.getRotationMatrix2D(center, 180, 1.0)
             frame = cv2.warpAffine(frame, M, (w, h))
         return frame
-    
     # resize and save frame as base64 for classification
+
     def base64_img(self, frame):
         encode_param = (int(cv2.IMWRITE_JPEG_QUALITY), 90)
         global jpg_base64
         jpg_base64 = cv2.resize(frame, (96, 96), interpolation = cv2.INTER_AREA)
         _frame, jpg_base64 = cv2.imencode('.jpg', jpg_base64, encode_param)
         jpg_base64 = base64.b64encode(jpg_base64) # save img as base64 to send over websocket
+        #print(jpg_base64)
 
     async def get_latest_frame(self):
         ret, frame = self.cap.read()
         await asyncio.sleep(0)
         frame = self.rotate(frame)
 
-        self.base64_img(frame) 
+        self.base64_img(frame)
 
         return frame
 
@@ -56,7 +63,7 @@ class CameraDevice():
 
         encode_param = (int(cv2.IMWRITE_JPEG_QUALITY), 90)
         frame, encimg = cv2.imencode('.jpg', frame, encode_param)
-        
+
         return encimg.tostring()
 
 class PeerConnectionFactory():
@@ -64,27 +71,28 @@ class PeerConnectionFactory():
         self.config = {'sdpSemantics': 'unified-plan'}
 
 
-        self.STUN_SERVER = None
-        self.TURN_SERVER = 'localhost:3478'
-        self.TURN_USERNAME = None
-        self.TURN_PASSWORD = None
+        self.STUN_SERVER = 'stun:stun.l.google.com:19302'
+        self.TURN_SERVER = 'turn:numb.viagenie.ca'
+        self.TURN_USERNAME = 'orgoanon@getnada.com'
+        self.TURN_PASSWORD = 'orgoanon'
         if all(k in os.environ for k in ('STUN_SERVER', 'TURN_SERVER', 'TURN_USERNAME', 'TURN_PASSWORD')):
             print('WebRTC connections will use your custom ICE Servers (STUN / TURN).')
             self.STUN_SERVER = os.environ['STUN_SERVER']
             self.TURN_SERVER = os.environ['TURN_SERVER']
             self.TURN_USERNAME = os.environ['TURN_USERNAME']
             self.TURN_PASSWORD = os.environ['TURN_PASSWORD']
-            iceServers = [
-                {
-                    'urls': self.STUN_SERVER
-                },
-                {
-                    'urls': self.TURN_SERVER,
-                    'credential': self.TURN_PASSWORD,
-                    'username': self.TURN_USERNAME
-                }
-            ]
-            self.config['iceServers'] = iceServers
+        iceServers = [
+            {
+                'urls': self.STUN_SERVER
+            },
+            {
+                'urls': self.TURN_SERVER,
+                'credential': self.TURN_PASSWORD,
+                'username': self.TURN_USERNAME
+            }
+        ]
+        # self.config['iceServers'] = []
+        # self.TURN_SERVER = None
 
     def create_peer_connection(self):
         if self.TURN_SERVER is not None:
@@ -147,6 +155,31 @@ async def edgeimpulse_logo(request):
 async def favicon(request):
     return web.FileResponse(os.path.join(ROOT, 'client/favicon.png'))
 
+async def remote_login(request):
+    content = open(os.path.join(ROOT, 'client/remote-login.html'), 'r').read()
+    return web.Response(content_type='text/html', text=content)
+
+async def admin_page(request):
+    content = open(os.path.join(ROOT, 'client/admin/index.html'), 'r').read()
+    return web.Response(content_type='text/html', text=content)
+
+async def vid_page(request):
+    content = open(os.path.join(ROOT, 'client/vid.html'), 'r').read()
+    return web.Response(content_type='text/html', text=content)
+
+async def is_logged_in(request):
+    # return web.Response(content_type='text/html', text=jpg_base64)
+    # pass
+    #_ = await RTCVideoStream.recv()
+    ws.send(jpg_base64)
+    results=json.loads(ws.recv())
+    for i in results['results']:
+        logging.warning(i)
+        if i['label'] == "myface" and i['value'] >= 0.8:
+            return web.Response(content_type='text/data', text="True")
+    else:
+        return web.Response(content_type='text/data', text="False")
+
 async def classification(request):
     cl_results = "{}"
     if jpg_base64 != "":
@@ -164,9 +197,8 @@ async def offer(request):
         type=params['type'])
     pc = pc_factory.create_peer_connection()
     pcs.add(pc)
-    # Add local media
-    local_video = RTCVideoStream(camera_device)
     pc.addTrack(local_video)
+    # Add local media
     @pc.on('iceconnectionstatechange')
     async def on_iceconnectionstatechange():
         if pc.iceConnectionState == 'failed':
@@ -181,6 +213,19 @@ async def offer(request):
             'sdp': pc.localDescription.sdp,
             'type': pc.localDescription.type
         }))
+
+async def classify_remote(request):
+    params = await request.json();
+    image = params['data'][23:];
+    frame = imread(io.BytesIO(base64.b64decode(image)))
+    encode_param = (int(cv2.IMWRITE_JPEG_QUALITY), 90)
+    global jpg_base64
+    jpg_base64 = cv2.resize(frame, (96, 96), interpolation = cv2.INTER_AREA)
+    _frame, jpg_base64 = cv2.imencode('.jpg', jpg_base64, encode_param)
+    jpg_base64 = base64.b64encode(jpg_base64) # save img as base64 to send over websocket
+    ws.send(jpg_base64)
+    out = ws.recv()
+    return web.Response(content_type='application/json', text=out)
 
 async def mjpeg_handler(request):
     boundary = "frame"
@@ -218,26 +263,17 @@ async def on_shutdown(app):
     coros = [pc.close() for pc in pcs]
     ws.close()
     await asyncio.gather(*coros)
-    
+
 async def peer_camera(request):
     params = await request.json()
-    offer = RTCSessionDescription(sdp=params["sdp"], type=params["type"])
-
-    pc = RTCPeerConnection()
-    pc_id = "PeerConnection(%s)" % uuid.uuid4()
+    offer = RTCSessionDescription(
+        sdp=params['sdp'],
+        type=params['type'])
+    pc = pc_factory.create_peer_connection()
     pcs.add(pc)
-
-    def log_info(msg, *args):
-        logger.info(pc_id + " " + msg, *args)
-
-    log_info("Created for %s", request.remote)
-
-    # prepare local media
-    player = MediaPlayer(os.path.join(ROOT, "demo-instruct.wav"))
-    if args.write_audio:
-        recorder = MediaRecorder(args.write_audio)
-    else:
-        recorder = MediaBlackhole()
+    #pc_id = "PeerConnection(%s)" % uuid.uuid4()
+    pc.addTrack(local_video)
+    #player = 
 
     @pc.on("datachannel")
     def on_datachannel(channel):
@@ -248,14 +284,14 @@ async def peer_camera(request):
 
     @pc.on("iceconnectionstatechange")
     async def on_iceconnectionstatechange():
-        log_info("ICE connection state is %s", pc.iceConnectionState)
+        print("ICE connection state is", pc.iceConnectionState)
         if pc.iceConnectionState == "failed":
             await pc.close()
             pcs.discard(pc)
 
     @pc.on("track")
     def on_track(track):
-        log_info("Track %s received", track.kind)
+        print("Track received", track.kind)
 
         if track.kind == "audio":
             pc.addTrack(player.audio)
@@ -265,12 +301,12 @@ async def peer_camera(request):
 
         @track.on("ended")
         async def on_ended():
-            log_info("Track %s ended", track.kind)
+            print("Track ended", track.kind)
             await recorder.stop()
 
     # handle offer
     await pc.setRemoteDescription(offer)
-    await recorder.start()
+    #await recorder.start()
 
     # send answer
     answer = await pc.createAnswer()
@@ -329,7 +365,8 @@ if __name__ == '__main__':
     
     # Factory to create peerConnections depending on the iceServers set by user
     pc_factory = PeerConnectionFactory()
-
+    local_video = RTCVideoStream(camera_device)
+ 
     # Connect to websocket server for image classification
     ws = create_connection("ws://edgeimpulse-inference:8080")
 
@@ -348,5 +385,10 @@ if __name__ == '__main__':
     app.router.add_get('/classification', classification)
     app.router.add_get('/invite', peer_add)
     app.router.add_get('/invited.js', invited)
-    app.router.add_post('/add', peer_camera)
+    app.router.add_post('/offer-remote', peer_camera)
+    app.router.add_post('/classify-remote', classify_remote)
+    app.router.add_get('/remote-login', remote_login)
+    app.router.add_get('/isLoggedIn', is_logged_in)
+    app.router.add_get('/admin', admin_page)
+    app.router.add_get('/vid.html',vid_page)
     web.run_app(app, port=80)
