@@ -5,6 +5,7 @@ import json
 import logging
 from time import sleep
 from aiohttp import web
+import aiohttp
 from av import VideoFrame
 from aiortc import RTCPeerConnection, RTCSessionDescription, VideoStreamTrack, RTCIceServer, RTCConfiguration, MediaStreamTrack
 from aiortc.contrib.media import MediaBlackhole, MediaPlayer, MediaRecorder
@@ -167,6 +168,27 @@ async def vid_page(request):
     content = open(os.path.join(ROOT, 'client/vid.html'), 'r').read()
     return web.Response(content_type='text/html', text=content)
 
+async def websocket_handler(request):
+    logging.warn('Yoo hoo!')
+    ws = web.WebSocketResponse()
+    await ws.prepare(request)
+    await ws.send_str("Just werks!")
+    # msg = await ws.receive_str()
+    async for msg in ws:
+        if msg.type == aiohttp.WSMsgType.TEXT:
+            if msg == 'close':
+                await ws.close()
+                break
+            else:
+                reply = is_logged_in(request)
+                logging.warning(type(reply))
+                await ws.send_str(reply)
+        elif msg.type == aiohttp.WSMsgType.ERROR:
+            print('ws exception')
+
+    print('websocket connection closed')
+    return ws
+
 async def is_logged_in(request):
     # return web.Response(content_type='text/html', text=jpg_base64)
     # pass
@@ -176,8 +198,10 @@ async def is_logged_in(request):
     for i in results['results']:
         logging.warning(i)
         if i['label'] == "myface" and i['value'] >= 0.8:
+            # return "True"
             return web.Response(content_type='text/data', text="True")
     else:
+        # return "False"
         return web.Response(content_type='text/data', text="False")
 
 async def classification(request):
@@ -318,7 +342,7 @@ async def peer_camera(request):
             {"sdp": pc.localDescription.sdp, "type": pc.localDescription.type}
         ),
     )
-        
+
 def checkDeviceReadiness():
     if not os.path.exists('/dev/video0') and platform.system() == 'Linux':
         print('Video device is not ready')
@@ -362,11 +386,11 @@ if __name__ == '__main__':
         print('Set the username and password environment variables \nto enable authorization.')
         print('For more info visit: \nhttps://github.com/balena-io-playground/balena-cam')
         print('#############################################################\n')
-    
+
     # Factory to create peerConnections depending on the iceServers set by user
     pc_factory = PeerConnectionFactory()
     local_video = RTCVideoStream(camera_device)
- 
+
     # Connect to websocket server for image classification
     ws = create_connection("ws://edgeimpulse-inference:8080")
 
@@ -391,4 +415,5 @@ if __name__ == '__main__':
     app.router.add_get('/isLoggedIn', is_logged_in)
     app.router.add_get('/admin', admin_page)
     app.router.add_get('/vid.html',vid_page)
+    app.router.add_get('/websocket', websocket_handler)
     web.run_app(app, port=80)
