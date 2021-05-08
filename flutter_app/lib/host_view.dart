@@ -24,23 +24,27 @@ class _HostViewState extends State<HostView> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TextFormField(
-                    validator: (value){
-                        if (value == null){
-                            return 'Please enter some text';
-                        }
-                        return value;
-                    },
-                    controller: _controller,
-                    ),
-            ElevatedButton(child: Text('Set the host'), onPressed: () {
-                if(_controller.text != null){
-                        var hostKey = 'host';
-                        LocalStorageService.saveToDisk(hostKey, _controller.text );
-                        Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MyHomePage(title: 'Home')),
-                                );
+              validator: (value) {
+                if (_controller.text == null) {
+                  return 'Please enter some text';
                 }
-            }),
+                return value;
+              },
+              controller: _controller,
+            ),
+            ElevatedButton(
+                child: Text('Set the host'),
+                onPressed: () {
+                  if (_controller.text != null) {
+                    var hostKey = 'host';
+                    LocalStorageService.saveToDisk(hostKey, _controller.text);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MyHomePage(title: 'Home')),
+                    );
+                  }
+                }),
           ],
         ),
       ),

@@ -180,8 +180,7 @@ async def websocket_handler(request):
                 await ws.close()
                 break
             else:
-                reply = is_logged_in(request)
-                logging.warning(type(reply))
+                reply = await is_logged_in(request)
                 await ws.send_str(reply)
         elif msg.type == aiohttp.WSMsgType.ERROR:
             print('ws exception')
@@ -240,16 +239,27 @@ async def offer(request):
 
 async def classify_remote(request):
     params = await request.json();
-    image = params['data'][23:];
-    frame = imread(io.BytesIO(base64.b64decode(image)))
+    logging.warning(params['data'][:200])
+    image = params['data'];
+    image_data = image[image.find('base64,/')+7:]
+    logging.warning(image_data[:200])
+    frame = imread(io.BytesIO(base64.b64decode(image_data)))
     encode_param = (int(cv2.IMWRITE_JPEG_QUALITY), 90)
     global jpg_base64
     jpg_base64 = cv2.resize(frame, (96, 96), interpolation = cv2.INTER_AREA)
     _frame, jpg_base64 = cv2.imencode('.jpg', jpg_base64, encode_param)
     jpg_base64 = base64.b64encode(jpg_base64) # save img as base64 to send over websocket
     ws.send(jpg_base64)
-    out = ws.recv()
-    return web.Response(content_type='application/json', text=out)
+    out = json.loads(ws.recv())
+    logging.warning(out)
+    for i in out['results']:
+        logging.warning(i)
+        if i['label'] == "myface" and i['value'] >= 0.8:
+            # return "True"
+            return web.Response(content_type='text/data', text="True")
+    else:
+        # return "False"
+        return web.Response(content_type='text/data', text="False")
 
 async def mjpeg_handler(request):
     boundary = "frame"

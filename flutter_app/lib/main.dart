@@ -174,18 +174,19 @@ class _MyHomePageState extends State<MyHomePage> {
           },
         )),
         SafeArea(
-                child: ListTile(
-                        title: Text('RemoteLogin'),
-                        leading: Icon(Icons.camera),
-                        onTap : () async{
-                            final cameras = await availableCameras();
-                            final firstCamera = cameras[1];
-                            Navigator.push(context,
-                                    MaterialPageRoute( builder: (context) => TakePictureScreen( camera: firstCamera))
-                                    );
-                        }
-                        ),
-                ),
+          child: ListTile(
+              title: Text('RemoteLogin'),
+              leading: Icon(Icons.camera),
+              onTap: () async {
+                final cameras = await availableCameras();
+                final firstCamera = cameras[1];
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            TakePictureScreen(camera: firstCamera)));
+              }),
+        ),
         SafeArea(
           child: AboutListTile(
             icon: Icon(Icons.info),

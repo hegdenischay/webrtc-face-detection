@@ -81,31 +81,32 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             // where it was saved.
             final image = await _controller.takePicture();
             var host = LocalStorageService.getFromDisk('host');
-            var postUri = Uri.parse("https://"+host + "/classify-remote");
+            var postUri = Uri.parse("https://" + host + "/classify-remote");
             List<int> imageBytes = await image.readAsBytes();
             String bytes = UriData.fromBytes(imageBytes).toString();
 
-            print("bytes read");
-            http.post(
-                    postUri,
-                    headers: <String, String>{
-                        'Content-Type': 'application/json',
-                    },
-                    body: jsonEncode(<String, String>{
-                        'data': bytes,
-                    }),
-                    ).then((response) {
-             Fluttertoast.showToast(
-                msg: response.body,
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.CENTER,
-                timeInSecForIosWeb: 1,
-                backgroundColor: Colors.red,
-                textColor: Colors.white,
-                fontSize: 16.0);
+            // print("bytes read");
+            http
+                .post(
+              postUri,
+              headers: <String, String>{
+                'Content-Type': 'application/json',
+              },
+              body: jsonEncode(<String, String>{
+                'data': bytes,
+              }),
+            )
+                .then((response) {
+              Fluttertoast.showToast(
+                  msg: response.body,
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: Colors.red,
+                  textColor: Colors.white,
+                  fontSize: 16.0);
 
-
-                if (response.statusCode == 200) print("Uploaded!");
+              // if (response.statusCode == 200) print("Uploaded!");
             });
 
             // If the picture was taken, display it on a new screen.
