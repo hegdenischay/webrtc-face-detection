@@ -1,13 +1,16 @@
 // import 'dart:io';
 // import 'dart:convert';
-import 'dart:async';
 
+import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'service_locator.dart';
 import 'host_view.dart';
 import 'services/localstorage_service.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:camera/camera.dart';
+import 'camera_view.dart';
 
 Future<void> main() async {
   try {
@@ -42,8 +45,7 @@ class MyApp extends StatelessWidget {
 }
 
 Widget _getStartupScreen() {
-  var localStorageService = locator<LocalStorageService>();
-  var host = localStorageService.hasHost;
+  var host = LocalStorageService.getFromDisk('host');
 
   if (host == 'unset') {
     return HostView(title: 'Set The webcam');
@@ -149,6 +151,42 @@ class _MyHomePageState extends State<MyHomePage> {
           decoration: BoxDecoration(color: Colors.blue),
         ),
         SafeArea(
+            child: ListTile(
+          title: Text('Clear Stored Data'),
+          leading: Icon(Icons.block),
+          onTap: () {
+            obliterate();
+            Fluttertoast.showToast(
+                msg: "Data Cleared!",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.red,
+                textColor: Colors.white,
+                fontSize: 16.0);
+
+            // obliterate();
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        HostView(title: 'Set the host again')));
+          },
+        )),
+        SafeArea(
+                child: ListTile(
+                        title: Text('RemoteLogin'),
+                        leading: Icon(Icons.camera),
+                        onTap : () async{
+                            final cameras = await availableCameras();
+                            final firstCamera = cameras[1];
+                            Navigator.push(context,
+                                    MaterialPageRoute( builder: (context) => TakePictureScreen( camera: firstCamera))
+                                    );
+                        }
+                        ),
+                ),
+        SafeArea(
           child: AboutListTile(
             icon: Icon(Icons.info),
             applicationIcon: FlutterLogo(),
@@ -156,14 +194,6 @@ class _MyHomePageState extends State<MyHomePage> {
             applicationVersion: 'alpha',
           ),
         ),
-        SafeArea(
-            child: ListTile(
-          title: Text('Clear Stored Data'),
-          onTap: () {
-            obliterate();
-            Navigator.pop(context);
-          },
-        )),
       ])),
       body: Center(
         child: Column(
@@ -175,7 +205,7 @@ class _MyHomePageState extends State<MyHomePage> {
               size: 40.0,
             ),
             Text(
-            _logged == true ? 'You are logged in.' : 'You are not logged in.',
+              _logged == true ? 'You are logged in.' : 'You are not logged in.',
             ),
           ],
         ),
