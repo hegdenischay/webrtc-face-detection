@@ -4,11 +4,25 @@ import 'dart:async';
 
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
-import 'package:web_socket_channel/status.dart' as status; 
+import 'package:shared_preferences/shared_preferences.dart';
+import 'service_locator.dart';
+import 'host_view.dart';
+import 'services/localstorage_service.dart';
 
-void main() {
-  runApp(MyApp());
+Future<void> main() async {
+  try {
+    WidgetsFlutterBinding.ensureInitialized();
+    setupLocator();
+    saveHost();
+    runApp(MyApp());
+  } catch (error) {
+    print('Locator Setup has failed');
+  }
+}
+
+saveHost() async {
+  var preferences = await SharedPreferences.getInstance();
+  preferences.setString('host', 'unset');
 }
 
 class MyApp extends StatelessWidget {
@@ -18,21 +32,23 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'DoorMate',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.lightBlue,
-        textTheme: TextTheme(bodyText2: TextStyle(color: Colors.black))
-      ),
-      home: MyHomePage(title: 'Lock Status'),
+          primarySwatch: Colors.lightBlue,
+          textTheme: TextTheme(bodyText2: TextStyle(color: Colors.black))),
+      //home: MyHomePage(title: 'Lock Status'),
+      home: _getStartupScreen(),
       darkTheme: ThemeData.dark(),
     );
+  }
+}
+
+Widget _getStartupScreen() {
+  var localStorageService = locator<LocalStorageService>();
+  var host = localStorageService.hasHost;
+
+  if (host == 'unset') {
+    return HostView(title: 'Set The webcam');
+  } else {
+    return MyHomePage(title: 'Lock Status');
   }
 }
 
@@ -55,57 +71,66 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  // int _counter = 0;
   bool _logged = false;
   Timer _timer;
-  final _host = "36849f8a8327a1.localhost.run";
 
-  void _isLoggedIn(String host) async {
+  void _isLoggedIn() async {
+    var localStorageService = locator<LocalStorageService>();
+    var host = localStorageService.hasHost;
     // print(host);
-    final response = await http.get(Uri.https(host, 'isLoggedIn'));
+    if (host != 'unset') {
+      final response = await http.get(Uri.https(host, 'isLoggedIn'));
 
-    if (response.statusCode == 200) {
-      if (response.body == "True") {
-        // print(response.body);
-        setState(() {
-          _logged = true;
-        });
-      } else {
-        if (response.body == "False") {
+      if (response.statusCode == 200) {
+        if (response.body == "True") {
+          // print(response.body);
           setState(() {
-            _logged = false;
+            _logged = true;
           });
+        } else {
+          if (response.body == "False") {
+            setState(() {
+              _logged = false;
+            });
+          }
+          print(response.body);
         }
-        print(response.body);
       }
+    } else {
+      print("Exception!");
     }
   }
 
   // void _incrementCounter() {
   //   setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      // _counter++;
-    // });
+  // This call to setState tells the Flutter framework that something has
+  // changed in this State, which causes it to rerun the build method below
+  // so that the display can reflect the updated values. If we changed
+  // _counter without calling setState(), then the build method would not be
+  // called again, and so nothing would appear to happen.
+  // _counter++;
+  // });
   // }
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    _timer = Timer.periodic(Duration(seconds: 10), (Timer t ) => _isLoggedIn(_host));
+    // makes sure that login is checked every 10 seconds
+    _timer = Timer.periodic(Duration(seconds: 10), (Timer t) => _isLoggedIn());
+  }
+
+  void obliterate() {
+    LocalStorageService.saveToDisk('host', 'unset');
   }
 
   @override
   Widget build(BuildContext context) {
-
-      // final channel = WebSocketChannel.connect(Uri.parse('wss://'+_host+'/websocket'));
-      // channel.stream.listen((message) {
-      //     channel.sink.add('close');
-      //     channel.sink.close(status.goingAway);
-      // });
+    // final channel = WebSocketChannel.connect(Uri.parse('wss://'+_host+'/websocket'));
+    // channel.stream.listen((message) {
+    //     channel.sink.add('close');
+    //     channel.sink.close(status.goingAway);
+    // });
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -119,63 +144,42 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       drawer: Drawer(
-              child: ListView(
-                      padding: EdgeInsets.zero,
-                      children: const <Widget>[
-                      DrawerHeader(
-                              decoration: BoxDecoration(color: Colors.blue),
-                              ),
-              SafeArea(
-                      child: AboutListTile(
-                              icon: Icon(Icons.info),
-                              applicationIcon: FlutterLogo(),
-                              applicationName: 'for open lab',
-                              applicationVersion: 'alpha',
-                              ),
-                      ),
-              ])
-              ),
-      body: Center( 
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
+          child: ListView(padding: EdgeInsets.zero, children: <Widget>[
+        DrawerHeader(
+          decoration: BoxDecoration(color: Colors.blue),
+        ),
+        SafeArea(
+          child: AboutListTile(
+            icon: Icon(Icons.info),
+            applicationIcon: FlutterLogo(),
+            applicationName: 'SimulatedLock',
+            applicationVersion: 'alpha',
+          ),
+        ),
+        SafeArea(
+            child: ListTile(
+          title: Text('Clear Stored Data'),
+          onTap: () {
+            obliterate();
+            Navigator.pop(context);
+          },
+        )),
+      ])),
+      body: Center(
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // ElevatedButton(
-        // child: Text('Check for login'),
-        // onPressed: _isLoggedIn,
-      // ), // This trailing comma makes auto-formatting nicer for build methods.
-                  // StreamBuilder(
-                  //   stream: channel.stream, 
-                  //   builder: (context, snapshot){
-                  //       print("Hello There!");
-                  //       return Text(snapshot.hasData? '${snapshot.data}' : 'Nothing for you mate');
-                    // }),
             Icon(
-                    _logged == true ? Icons.lock : Icons.lock_open,
-                    color: _logged == true ? Colors.green : Colors.red ,
-                    size: 40.0,
-                ),
-             Text(
-              _logged == true ? 'You are logged in.' : 'You are not logged in.',
+              _logged == true ? Icons.lock : Icons.lock_open,
+              color: _logged == true ? Colors.green : Colors.red,
+              size: 40.0,
+            ),
+            Text(
+            _logged == true ? 'You are logged in.' : 'You are not logged in.',
             ),
           ],
         ),
       ),
-      );
+    );
   }
 }
