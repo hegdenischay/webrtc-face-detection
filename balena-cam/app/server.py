@@ -9,6 +9,7 @@ import aiohttp
 from av import VideoFrame
 from aiortc import RTCPeerConnection, RTCSessionDescription, VideoStreamTrack, RTCIceServer, RTCConfiguration, MediaStreamTrack
 from aiortc.contrib.media import MediaBlackhole, MediaPlayer, MediaRecorder
+from aiortc.mediastreams import MediaStreamError
 from aiohttp_basicauth import BasicAuthMiddleware
 from imageio import imread
 
@@ -16,7 +17,6 @@ from imageio import imread
 
 #ssl_ctx = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
 #ssl_ctx.load_cert_chain('domain_srv.crt', 'domain_srv.key')
-
 
 
 class CameraDevice():
@@ -168,6 +168,14 @@ async def vid_page(request):
     content = open(os.path.join(ROOT, 'client/vid.html'), 'r').read()
     return web.Response(content_type='text/html', text=content)
 
+async def preferences_handler(request):
+    content = open(os.path.join(ROOT, 'admin/preferences.html'), 'r').read()
+    return web.Response(content_type='text/html', text=content)
+
+async def users_handler(request):
+    content = open(os.path.join(ROOT, 'admmin/users.html'), 'r').read()
+    return web.Response(content_type='text/html', text=content)
+
 async def websocket_handler(request):
     logging.warn('Yoo hoo!')
     ws = web.WebSocketResponse()
@@ -218,12 +226,13 @@ async def offer(request):
     offer = RTCSessionDescription(
         sdp=params['sdp'],
         type=params['type'])
+    # Add local media
     pc = pc_factory.create_peer_connection()
+    local_video = RTCVideoStream(camera_device)
     pcs.add(pc)
     pc.addTrack(local_video)
-    # Add local media
-    @pc.on('iceconnectionstatechange')
-    async def on_iceconnectionstatechange():
+    @pc.on('connectionstatechange')
+    async def on_connectionstatechange():
         if pc.iceConnectionState == 'failed':
             await pc.close()
             pcs.discard(pc)
@@ -303,11 +312,12 @@ async def peer_camera(request):
     offer = RTCSessionDescription(
         sdp=params['sdp'],
         type=params['type'])
-    pc = pc_factory.create_peer_connection()
-    pcs.add(pc)
     #pc_id = "PeerConnection(%s)" % uuid.uuid4()
-    pc.addTrack(local_video)
     #player = 
+    pc = pc_factory.create_peer_connection()
+    #video = pc.getReceivers[0].track
+    pcs.add(pc)
+    #pc.addTrack(video)
 
     @pc.on("datachannel")
     def on_datachannel(channel):
@@ -316,8 +326,8 @@ async def peer_camera(request):
             if isinstance(message, str) and message.startswith("ping"):
                 channel.send("pong" + message[4:])
 
-    @pc.on("iceconnectionstatechange")
-    async def on_iceconnectionstatechange():
+    @pc.on("connectionstatechange")
+    async def on_connectionstatechange():
         print("ICE connection state is", pc.iceConnectionState)
         if pc.iceConnectionState == "failed":
             await pc.close()
@@ -328,15 +338,15 @@ async def peer_camera(request):
         print("Track received", track.kind)
 
         if track.kind == "audio":
-            pc.addTrack(player.audio)
-            recorder.addTrack(track)
+            pc.addTrack(track)
+            #recorder.addTrack(track)
         elif track.kind == "video":
-            pc.addTrack(player.video)
-
+            pc.addTrack(track)
+            #recorder.addTrack(track)
         @track.on("ended")
         async def on_ended():
             print("Track ended", track.kind)
-            await recorder.stop()
+            await pc.stop()
 
     # handle offer
     await pc.setRemoteDescription(offer)
@@ -371,10 +381,10 @@ if __name__ == '__main__':
     checkDeviceReadiness()
 
     ROOT = os.path.dirname(__file__)
-    pcs = set()
     camera_device = CameraDevice()
+    pc_factory = PeerConnectionFactory()
     jpg_base64 = ""
-
+    pcs = set()
     flip = False
     try:
         if os.environ['rotation'] == '1':
@@ -398,9 +408,6 @@ if __name__ == '__main__':
         print('#############################################################\n')
 
     # Factory to create peerConnections depending on the iceServers set by user
-    pc_factory = PeerConnectionFactory()
-    local_video = RTCVideoStream(camera_device)
-
     # Connect to websocket server for image classification
     ws = create_connection("ws://edgeimpulse-inference:8080")
 
@@ -426,4 +433,6 @@ if __name__ == '__main__':
     app.router.add_get('/admin', admin_page)
     app.router.add_get('/vid.html',vid_page)
     app.router.add_get('/websocket', websocket_handler)
+    app.router.add_get('/preferences',preferences_handler)
+    app.router.add_get('/users',users_handler)
     web.run_app(app, port=80)

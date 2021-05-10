@@ -14,4 +14,4 @@ services:
                 labels:
                         io.balena.features.kernel-modules: '1'
                 volumes:
-                       - ./balena-cam/app:/usr/src/app
+                        - ./balena-cam/app:/usr/src/app
