@@ -18,66 +18,17 @@
         <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" aria-expanded="false">
           <span class="navbar-toggler-icon"></span>
         </button>
+      <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark" href="#">Home</a>
+        <a class="p-2 text-dark" href="/users">Users</a>
+        <a class="p-2 text-dark" href="/preferences">Preferences</a>
+      </nav>
       </div>
     </nav>
   </div>		
-		<div class="wrapper d-flex align-items-stretch">
-			<nav id="sidebar" class="active">
-				<h1><a href="index.html" class="logo">Home</a></h1>
-        <ul class="list-unstyled components mb-5">
-          <li class="active">
-            <a href="/"><span class="fa fa-home"></span> Home</a>
-          </li>
-          <li>
-              <a href="./users"><span class="fa fa-user"></span> Users</a>
-          </li>
-          <li>
-            <a href="#"><span class="fa fa-dashboard"></span> Dashboard</a>
-          </li>
-          <li>
-            <a href="./preferences"><span class="fa fa-cogs"></span> Preferences</a>
-          </li><!--
-          <li>
-            <a href="#"><span class="fa fa-paper-plane"></span> </a>
-          </li>-->
-        </ul>
-    	</nav>
-
         <!-- Page Content  -->
       <div id="content" class="p-4 p-md-5">
-
-       <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div class="container-fluid">
-
-            <button type="button" id="sidebarCollapse" class="btn btn-primary">
-              <i class="fa fa-bars"></i>
-              <span class="sr-only">Toggle Menu</span>
-            </button>
-            <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fa fa-bars"></i>
-            </button>
-
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="nav navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Portfolio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>-->
-
-
-         <h2 class="mb-4">Live Feed</h2>
+    <h2 class="mb-4">Live Feed</h2>
     <div class="main-container">
     <div id="spinner-container" class="container">
       <div class="loader"></div>
@@ -136,9 +87,16 @@
         </div>
       </div>
     </div>
+      <div class="container" style="display: flex; justify-content: center; align-items: center; top: 50%; ">
+      <button type="button" class="btn btn-primary" onclick="doLogin()">Override Login</button>
+      </div>
+      <div id='result' style='display: flex; justify-content: center; align-items: center'></div>
     <div class="container">
         <pre id="classification" style="height: 200px;"></pre>
       </div>
+
+      </div>
+
   </div>
       </div>
 		</div>
@@ -168,5 +126,21 @@
 })(jQuery);
     </script>
     <script src="client.js"></script>
+    <script>
+    function doLogin(){
+          fetch('/doLogin').then(function(response){
+                console.log(response)
+                if(response.status === 200)
+                {
+                      reply = response.text().then(function(response) {   document.getElementById('result').innerHTML = response});
+                }
+                if(response.status === 500)
+                {
+                    document.getElementById('result').innerHTML = "Something Failed";
+                }
+              });
+        }
+    </script>
+
   </body>
 </html>

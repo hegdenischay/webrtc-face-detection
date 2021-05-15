@@ -38,7 +38,7 @@ RUN pip3 install --upgrade pip wheel
 WORKDIR /usr/src/app
 
 COPY ./app/ /usr/src/app/
-COPY ../.venv/ /usr/src/app/.venv
-RUN source ./.venv/bin/activate
+# COPY ../.venv/ /usr/src/app/.venv
+# RUN source ./.venv/bin/activate
 RUN pip3 install -r requirements.txt
 CMD ["python3", "/usr/src/app/server.py"]

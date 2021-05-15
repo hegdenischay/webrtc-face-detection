@@ -12,12 +12,16 @@ from aiortc.contrib.media import MediaBlackhole, MediaPlayer, MediaRecorder
 from aiortc.mediastreams import MediaStreamError
 from aiohttp_basicauth import BasicAuthMiddleware
 from imageio import imread
+from formencode import variabledecode
+import time
 
 #import ssl
 
 #ssl_ctx = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
 #ssl_ctx.load_cert_chain('domain_srv.crt', 'domain_srv.key')
 
+os.environ['isLoggedIn'] = "False"
+os.environ['currTime'] = str(time.time())
 
 class CameraDevice():
     def __init__(self):
@@ -70,12 +74,10 @@ class CameraDevice():
 class PeerConnectionFactory():
     def __init__(self):
         self.config = {'sdpSemantics': 'unified-plan'}
-
-
-        self.STUN_SERVER = 'stun:stun.l.google.com:19302'
-        self.TURN_SERVER = 'turn:numb.viagenie.ca'
-        self.TURN_USERNAME = 'orgoanon@getnada.com'
-        self.TURN_PASSWORD = 'orgoanon'
+        self.STUN_SERVER = ""
+        self.TURN_SERVER = ""
+        self.TURN_USERNAME = ""
+        self.TURN_PASSWORD = ""
         if all(k in os.environ for k in ('STUN_SERVER', 'TURN_SERVER', 'TURN_USERNAME', 'TURN_PASSWORD')):
             print('WebRTC connections will use your custom ICE Servers (STUN / TURN).')
             self.STUN_SERVER = os.environ['STUN_SERVER']
@@ -105,7 +107,7 @@ class PeerConnectionFactory():
 
     def get_ice_config(self):
         return json.dumps(self.config)
-
+    
 
 class RTCVideoStream(VideoStreamTrack):
     def __init__(self, camera_device):
@@ -164,17 +166,47 @@ async def admin_page(request):
     content = open(os.path.join(ROOT, 'client/admin/index.html'), 'r').read()
     return web.Response(content_type='text/html', text=content)
 
-async def vid_page(request):
-    content = open(os.path.join(ROOT, 'client/vid.html'), 'r').read()
-    return web.Response(content_type='text/html', text=content)
+# async def vid_page(request):
+#     content = open(os.path.join(ROOT, 'client/vid.html'), 'r').read()
+#     return web.Response(content_type='text/html', text=content)
 
 async def preferences_handler(request):
-    content = open(os.path.join(ROOT, 'admin/preferences.html'), 'r').read()
+    content = open(os.path.join(ROOT, 'client/admin/preferences.html'), 'r').read()
     return web.Response(content_type='text/html', text=content)
 
 async def users_handler(request):
-    content = open(os.path.join(ROOT, 'admmin/users.html'), 'r').read()
+    content = open(os.path.join(ROOT, 'client/admin/users.html'), 'r').read()
     return web.Response(content_type='text/html', text=content)
+
+# async def client_area(request):
+#     content = open(os.path.join(ROOT, 'client/admin/client-area.html'), 'r').read()
+#     return web.Response(content_type='text/html', text=content)
+
+async def do_login(request):
+    os.environ['isLoggedIn'] = "True"
+    os.environ['currTime'] = str(time.time())
+    return web.Response(content_type='data/text', text="Logged in!")
+
+async def get_prefs(request):
+    peer = PeerConnectionFactory()
+    content = {
+        "idpconfig": json.dumps(peer.config),
+        "stun_server": peer.STUN_SERVER,
+        "turn_server": peer.TURN_SERVER,
+        "turn_username": peer.TURN_USERNAME,
+        "turn_password": peer.TURN_PASSWORD
+    }
+    return web.Response(content_type='text/json', text=json.dumps(content))
+
+async def set_prefs(request):
+    data = await request.post()
+    data = variabledecode.variable_decode(data)
+    logging.warning(data)
+    os.environ['STUN_SERVER'] = data['stun_server']
+    os.environ['TURN_SERVER'] = data['turn_server']
+    os.environ['TURN_USERNAME'] = data['turn_username']
+    os.environ['TURN_PASSWORD'] = data['turn_password']
+    return web.HTTPFound('/preferences')
 
 async def websocket_handler(request):
     logging.warn('Yoo hoo!')
@@ -206,9 +238,15 @@ async def is_logged_in(request):
         logging.warning(i)
         if i['label'] == "myface" and i['value'] >= 0.8:
             # return "True"
+            os.environ['isLoggedIn'] = "True"
+            os.environ['currTime'] = str(tim.time())
             return web.Response(content_type='text/data', text="True")
     else:
         # return "False"
+        if os.environ['isLoggedIn'] == "True" and float(os.environ['currTime']) > time.time() - 10:
+            return web.Response(content_type='text/data', text="True")
+        os.environ['isLoggedIn'] = "False"
+        os.environ['currTime'] = str(time.time())
         return web.Response(content_type='text/data', text="False")
 
 async def classification(request):
@@ -247,15 +285,16 @@ async def offer(request):
         }))
 
 async def classify_remote(request):
-    params = await request.json();
+    params = await request.json()
     logging.warning(params['data'][:200])
-    image = params['data'];
+    image = params['data']
     image_data = image[image.find('base64,/')+7:]
     logging.warning(image_data[:200])
     frame = imread(io.BytesIO(base64.b64decode(image_data)))
     encode_param = (int(cv2.IMWRITE_JPEG_QUALITY), 90)
     global jpg_base64
     jpg_base64 = cv2.resize(frame, (96, 96), interpolation = cv2.INTER_AREA)
+    jpg_base64 = cv2.flip(jpg_base64,1)
     _frame, jpg_base64 = cv2.imencode('.jpg', jpg_base64, encode_param)
     jpg_base64 = base64.b64encode(jpg_base64) # save img as base64 to send over websocket
     ws.send(jpg_base64)
@@ -431,8 +470,12 @@ if __name__ == '__main__':
     app.router.add_get('/remote-login', remote_login)
     app.router.add_get('/isLoggedIn', is_logged_in)
     app.router.add_get('/admin', admin_page)
-    app.router.add_get('/vid.html',vid_page)
+    # app.router.add_get('/vid.html',vid_page)
     app.router.add_get('/websocket', websocket_handler)
     app.router.add_get('/preferences',preferences_handler)
+    app.router.add_get('/get_prefs', get_prefs)
     app.router.add_get('/users',users_handler)
+    # app.router.add_get('/client_area', client_area)
+    app.router.add_get('/doLogin', do_login)
+    app.router.add_post('/setPrefs', set_prefs)
     web.run_app(app, port=80)
