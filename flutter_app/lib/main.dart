@@ -2,6 +2,9 @@
 // import 'dart:convert';
 
 import 'dart:async';
+// import 'dart:html';
+import 'package:flutter/services.dart';
+import 'package:flutter_app/services/get_host.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,6 +14,9 @@ import 'services/localstorage_service.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:camera/camera.dart';
 import 'camera_view.dart';
+import 'package:local_auth/local_auth.dart';
+import 'package:http_auth/http_auth.dart';
+import 'dart:convert';
 
 Future<void> main() async {
   try {
@@ -24,8 +30,18 @@ Future<void> main() async {
 }
 
 saveHost() async {
-  var preferences = await SharedPreferences.getInstance();
-  preferences.setString('host', 'unset');
+  var host = LocalStorageService.getFromDisk('host');
+  var password = LocalStorageService.getFromDisk('password');
+  var username = LocalStorageService.getFromDisk('username');
+  if (host == "null") {
+    LocalStorageService.saveToDisk("host", "unset");
+  }
+  if (password == "null") {
+    LocalStorageService.saveToDisk("password", "unset");
+  }
+  if (username == "null") {
+    LocalStorageService.saveToDisk("username", "unset");
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -40,15 +56,44 @@ class MyApp extends StatelessWidget {
       //home: MyHomePage(title: 'Lock Status'),
       home: _getStartupScreen(),
       darkTheme: ThemeData.dark(),
+      routes: {
+        '/host': (context) => HostView(title: 'Set the webcame'),
+        '/hostagain': (context) => HostView(title: 'Set The Host Again'),
+      },
     );
   }
 }
 
 Widget _getStartupScreen() {
   var host = LocalStorageService.getFromDisk('host');
+  final LocalAuthentication _localAuthentication = LocalAuthentication();
+  bool _authorized = true;
+  Future<bool> checkingForBioMetrics() async {
+    bool canCheckBiometrics = await _localAuthentication.canCheckBiometrics;
+    print(canCheckBiometrics);
+    return canCheckBiometrics;
+  }
 
-  if (host == 'unset') {
-    return HostView(title: 'Set The webcam');
+  Future<void> _authenticateMe() async {
+    bool authorized = false;
+    try {
+      authorized = await _localAuthentication.authenticate(
+        localizedReason: "To access the lock", // message for dialogue
+        stickyAuth: false,
+        biometricOnly: true,
+      );
+      if(authorized == false){
+          SystemNavigator.pop();
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  _authenticateMe();
+  print(host);
+  if (host == 'unset' || host == null || host == 'null') {
+    return HostView(title: 'Set The Webcam');
   } else {
     return MyHomePage(title: 'Lock Status');
   }
@@ -76,31 +121,71 @@ class _MyHomePageState extends State<MyHomePage> {
   // int _counter = 0;
   bool _logged = false;
   Timer _timer;
-
-  void _isLoggedIn() async {
+  void _checkResponse() async {
     var localStorageService = locator<LocalStorageService>();
     var host = localStorageService.hasHost;
-    // print(host);
-    if (host != 'unset') {
-      final response = await http.get(Uri.https(host, 'isLoggedIn'));
 
-      if (response.statusCode == 200) {
-        if (response.body == "True") {
-          // print(response.body);
-          setState(() {
-            _logged = true;
-          });
-        } else {
-          if (response.body == "False") {
-            setState(() {
-              _logged = false;
-            });
-          }
-          print(response.body);
+    print(host);
+    if (host != 'unset' && host != null && host != 'null') {
+      try {
+        final response = await http.get(Uri.https(host, 'isLoggedIn'));
+        _isLoggedIn(response);
+        if (response.statusCode == 401) {
+          throw ("exception!");
         }
+      } catch (e, s) {
+        try {
+          var username = localStorageService.hasUser;
+          // print(username);
+          var password = localStorageService.hasPass;
+          // print(password);
+          Codec<String, String> stringtoBase64 = utf8.fuse(base64);
+          String hash = stringtoBase64.encode(username + ":" + password);
+          // print(hash);
+          final response =
+              await http.get(Uri.https(host, 'isLoggedIn'), headers: {
+            'Authorization': 'Basic ' + hash,
+          });
+          print(response.statusCode);
+          _isLoggedIn(response);
+        } catch (e, s) {
+          print("Exception");
+        }
+      }
+    }
+  }
+
+  void _isLoggedIn(response) async {
+    if (response.statusCode == 200) {
+      if (response.body == "True") {
+        // print(response.body);
+        setState(() {
+          _logged = true;
+        });
+      } else {
+        if (response.body == "False") {
+          setState(() {
+            _logged = false;
+          });
+        }
+        print(response.body);
       }
     } else {
       print("Exception!");
+      setState(() {
+        _logged = false;
+      });
+      // Navigator.pushReplacementNamed(context, '/hostagain');
+      if (response.statusCode == 503) {
+        Fluttertoast.showToast(
+            msg: 'We were unable to contact the server',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }
     }
   }
 
@@ -119,7 +204,8 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     // makes sure that login is checked every 10 seconds
-    _timer = Timer.periodic(Duration(seconds: 10), (Timer t) => _isLoggedIn());
+    _timer =
+        Timer.periodic(Duration(seconds: 1), (Timer t) => _checkResponse());
   }
 
   void obliterate() {
@@ -152,25 +238,21 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         SafeArea(
             child: ListTile(
-          title: Text('Clear Stored Data'),
+          title: Text('Preferences'),
           leading: Icon(Icons.block),
           onTap: () {
-            obliterate();
-            Fluttertoast.showToast(
-                msg: "Data Cleared!",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.CENTER,
-                timeInSecForIosWeb: 1,
-                backgroundColor: Colors.red,
-                textColor: Colors.white,
-                fontSize: 16.0);
+            // obliterate();
+            // Fluttertoast.showToast(
+            //     msg: "Data Cleared!",
+            //     toastLength: Toast.LENGTH_SHORT,
+            //     gravity: ToastGravity.CENTER,
+            //     timeInSecForIosWeb: 1,
+            //     backgroundColor: Colors.red,
+            //     textColor: Colors.white,
+            //     fontSize: 16.0);
 
             // obliterate();
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        HostView(title: 'Set the host again')));
+            Navigator.popAndPushNamed(context, "/host");
           },
         )),
         SafeArea(
@@ -178,6 +260,7 @@ class _MyHomePageState extends State<MyHomePage> {
               title: Text('RemoteLogin'),
               leading: Icon(Icons.camera),
               onTap: () async {
+// Navigator.pop(context);
                 final cameras = await availableCameras();
                 final firstCamera = cameras[1];
                 Navigator.push(
@@ -201,12 +284,12 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Icon(
-              _logged == true ? Icons.lock : Icons.lock_open,
+              _logged == true ? Icons.lock_open : Icons.lock,
               color: _logged == true ? Colors.green : Colors.red,
               size: 40.0,
             ),
             Text(
-              _logged == true ? 'You are logged in.' : 'You are not logged in.',
+              _logged == true ? 'The Lock is unlocked.' : 'The lock is locked.',
             ),
           ],
         ),

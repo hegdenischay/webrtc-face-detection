@@ -11,11 +11,16 @@
 
   <div class="header">
     <nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
-      <div class="container">
-        <a class="navbar-brand" href="#"><img style="width: 13rem; height: auto;" src="./edgeimpulse-logo-white.svg"></a> Remote Login
+        <a class="navbar-brand" href="#"><img style="width: 13rem; height: auto;" src="./edgeimpulse-logo-white.svg"></a>
         <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" aria-expanded="false">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+          </button>
+      <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark" href="/admin">Home</a>
+        <a class="p-2 text-dark" href="#">Users</a>
+        <a class="p-2 text-dark" href="/preferences">Preferences</a>
+        <a class="p-2 text-dark" href="/remote-login">Remote Login</a>
+      </nav>
+ 
         <div class="navbar-collapse collapse" id="collapsibleNavbar">
           <ul class="navbar-nav ml-auto">
             <li id="webrtc" class="nav-item indicator">
@@ -54,16 +59,18 @@ navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
   document.getElementById('video-container').style.display = 'block';
   }).catch(error => console.error("Error:", error));
 </script>
+ <div class="container" style="display: flex; justify-content: center; align-items: center; top: 50%; ">
+ <input id="photo-button" class="btn btn-primary" type="button" value ="Take a Photo" onclick="capturePhoto(video);" style="">
+      </div>
 
-<input id="screenshot-button" type="button" value ="Take screenshot" onclick="captureScreenshot(video);">
 <img src="">
 <script>
-const screenshotButton = document.querySelector("#screenshot-button");
+const photoButton = document.querySelector("#photo-button");
 const img = document.querySelector("img");
 
 const canvas = document.createElement("canvas");
 
-function captureScreenshot(video) {
+function capturePhoto(video) {
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;
   canvas.getContext("2d").drawImage(video, 0, 0);

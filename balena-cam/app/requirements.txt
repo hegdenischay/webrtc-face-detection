@@ -9,3 +9,4 @@ numpy
 opencv-python
 imageio
 formencode
+pillow

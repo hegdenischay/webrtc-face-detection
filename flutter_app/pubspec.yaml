@@ -31,6 +31,10 @@ dependencies:
   camera: ^0.8.1
   path_provider: ^2.0.1
   path: ^1.8.0
+  local_auth: ^1.1.5
+  flutter_native_image: ^0.0.6
+  get: ^4.1.4
+  http_auth: ^1.0.0
   # web_socket_channel: ^2.1.0
 
 dev_dependencies:

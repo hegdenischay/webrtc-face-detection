@@ -21,6 +21,7 @@
         <a class="p-2 text-dark" href="/admin">Home</a>
         <a class="p-2 text-dark" href="/users">Users</a>
         <a class="p-2 text-dark" href="#">Preferences</a>
+        <a class="p-2 text-dark" href="/remote-login">Remote Login</a>
       </nav>
 
       </div>
@@ -58,6 +59,13 @@
               <th scope='col'>Value</th>
             </tr>
           </thead>
+          <tr>
+            <th>Server Username</th>
+            <th id='server_username'></th>
+          </tr>
+          <tr>
+             <th>Server Password</th>
+             <th id='server_password'></th>
           <tr>
             <th>IDP Config</th>
             <th id="idpconfig"></th>
@@ -114,6 +122,8 @@
               document.getElementById('turn_username').innerHTML = "<input type='text' name='turn_username' value="+json['turn_username']+">";
               document.getElementById('turn_password').innerHTML = "<input type='text' name='turn_password' value="+json['turn_password']+">";
               document.getElementById('stun').innerHTML = "<input type='text' name='stun_server' value="+json['stun_server']+">";
+              document.getElementById('server_username').innerHTML = "<input type='text' name='server_username' value="+json['server_username']+">"
+              document.getElementById('server_password').innerHTML = "<input type='text' name='server_password' value="+json['server_password']+">"
             });
     </script>
   </body>

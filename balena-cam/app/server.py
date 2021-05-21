@@ -14,11 +14,8 @@ from aiohttp_basicauth import BasicAuthMiddleware
 from imageio import imread
 from formencode import variabledecode
 import time
-
-#import ssl
-
-#ssl_ctx = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
-#ssl_ctx.load_cert_chain('domain_srv.crt', 'domain_srv.key')
+from PIL import Image
+import numpy
 
 os.environ['isLoggedIn'] = "False"
 os.environ['currTime'] = str(time.time())
@@ -30,8 +27,8 @@ class CameraDevice():
         if not ret:
             print('Failed to open default camera. Exiting...')
             sys.exit()
-        self.cap.set(3, 640)
-        self.cap.set(4, 640)
+        self.cap.set(3, 720)
+        self.cap.set(4, 720)
 
     def rotate(self, frame):
         if flip:
@@ -45,10 +42,25 @@ class CameraDevice():
     def base64_img(self, frame):
         encode_param = (int(cv2.IMWRITE_JPEG_QUALITY), 90)
         global jpg_base64
-        jpg_base64 = cv2.resize(frame, (96, 96), interpolation = cv2.INTER_AREA)
-        _frame, jpg_base64 = cv2.imencode('.jpg', jpg_base64, encode_param)
-        jpg_base64 = base64.b64encode(jpg_base64) # save img as base64 to send over websocket
-        #print(jpg_base64)
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_alt2.xml')
+        faces = face_cascade.detectMultiScale(gray,1.1,4)
+        for (x, y, w, h) in faces:
+            # logging.warning(w,h)
+            # cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 0, 255), 2)
+            if h >= 160 and w >= 160:
+                # print("height > 160 and width too")
+                faces = frame[y:y+h,x:x+w]
+                jpg_base64 = cv2.resize(faces, (160, 160), interpolation = cv2.INTER_AREA)
+                _frame, jpg_base64 = cv2.imencode('.jpg', jpg_base64, encode_param)
+                jpg_base64 = base64.b64encode(jpg_base64)
+                # logging.warning(jpg_base64)
+            else:
+                faces = frame
+                jpg_base64 = cv2.resize(frame, (160, 160), interpolation = cv2.INTER_AREA)
+                _frame, jpg_base64 = cv2.imencode('.jpg', jpg_base64, encode_param)
+                jpg_base64 = base64.b64encode(jpg_base64)
+        # print(jpg_base64)
 
     async def get_latest_frame(self):
         ret, frame = self.cap.read()
@@ -74,10 +86,10 @@ class CameraDevice():
 class PeerConnectionFactory():
     def __init__(self):
         self.config = {'sdpSemantics': 'unified-plan'}
-        self.STUN_SERVER = ""
-        self.TURN_SERVER = ""
-        self.TURN_USERNAME = ""
-        self.TURN_PASSWORD = ""
+        self.STUN_SERVER = "stun:stun.l.google.com:19302"
+        self.TURN_SERVER = None
+        self.TURN_USERNAME = None
+        self.TURN_PASSWORD = None
         if all(k in os.environ for k in ('STUN_SERVER', 'TURN_SERVER', 'TURN_USERNAME', 'TURN_PASSWORD')):
             print('WebRTC connections will use your custom ICE Servers (STUN / TURN).')
             self.STUN_SERVER = os.environ['STUN_SERVER']
@@ -93,8 +105,8 @@ class PeerConnectionFactory():
                 'credential': self.TURN_PASSWORD,
                 'username': self.TURN_USERNAME
             }
-        ]
-        # self.config['iceServers'] = []
+                    ]
+        self.config['iceServers'] = iceServers if self.TURN_SERVER != None else []
         # self.TURN_SERVER = None
 
     def create_peer_connection(self):
@@ -107,7 +119,7 @@ class PeerConnectionFactory():
 
     def get_ice_config(self):
         return json.dumps(self.config)
-    
+
 
 class RTCVideoStream(VideoStreamTrack):
     def __init__(self, camera_device):
@@ -127,20 +139,12 @@ async def index(request):
     content = open(os.path.join(ROOT, 'client/index.html'), 'r').read()
     return web.Response(content_type='text/html', text=content)
 
-async def peer_add(request):
-    content = open(os.path.join(ROOT, 'client/invite.html'), 'r').read()
-    return web.Response(content_type='text/html', text=content)
-
 async def stylesheet(request):
     content = open(os.path.join(ROOT, 'client/style.css'), 'r').read()
     return web.Response(content_type='text/css', text=content)
 
 async def javascript(request):
     content = open(os.path.join(ROOT, 'client/client.js'), 'r').read()
-    return web.Response(content_type='application/javascript', text=content)
-
-async def invited(request):
-    content = open(os.path.join(ROOT, 'client/invited.js'), 'r').read()
     return web.Response(content_type='application/javascript', text=content)
 
 async def balena(request):
@@ -166,10 +170,6 @@ async def admin_page(request):
     content = open(os.path.join(ROOT, 'client/admin/index.html'), 'r').read()
     return web.Response(content_type='text/html', text=content)
 
-# async def vid_page(request):
-#     content = open(os.path.join(ROOT, 'client/vid.html'), 'r').read()
-#     return web.Response(content_type='text/html', text=content)
-
 async def preferences_handler(request):
     content = open(os.path.join(ROOT, 'client/admin/preferences.html'), 'r').read()
     return web.Response(content_type='text/html', text=content)
@@ -178,10 +178,6 @@ async def users_handler(request):
     content = open(os.path.join(ROOT, 'client/admin/users.html'), 'r').read()
     return web.Response(content_type='text/html', text=content)
 
-# async def client_area(request):
-#     content = open(os.path.join(ROOT, 'client/admin/client-area.html'), 'r').read()
-#     return web.Response(content_type='text/html', text=content)
-
 async def do_login(request):
     os.environ['isLoggedIn'] = "True"
     os.environ['currTime'] = str(time.time())
@@ -189,12 +185,20 @@ async def do_login(request):
 
 async def get_prefs(request):
     peer = PeerConnectionFactory()
+    try:
+        username = os.environ['username']
+        password = os.environ['password']
+    except KeyError:
+        username = "Not Applicable"
+        password = "Not Applicable"
     content = {
         "idpconfig": json.dumps(peer.config),
         "stun_server": peer.STUN_SERVER,
         "turn_server": peer.TURN_SERVER,
         "turn_username": peer.TURN_USERNAME,
-        "turn_password": peer.TURN_PASSWORD
+        "turn_password": peer.TURN_PASSWORD,
+        "server_username": username,
+        "server_password": password
     }
     return web.Response(content_type='text/json', text=json.dumps(content))
 
@@ -206,40 +210,22 @@ async def set_prefs(request):
     os.environ['TURN_SERVER'] = data['turn_server']
     os.environ['TURN_USERNAME'] = data['turn_username']
     os.environ['TURN_PASSWORD'] = data['turn_password']
+    username = data['server_username']
+    password = data['server_password']
+    if ((username != "" and password != "") and (username != 'Not Applicable' or username != 'Not Applicable') ):
+        os.environ['username'] = data['server_username']
+        os.environ['password'] = data['server_password']
     return web.HTTPFound('/preferences')
 
-async def websocket_handler(request):
-    logging.warn('Yoo hoo!')
-    ws = web.WebSocketResponse()
-    await ws.prepare(request)
-    await ws.send_str("Just werks!")
-    # msg = await ws.receive_str()
-    async for msg in ws:
-        if msg.type == aiohttp.WSMsgType.TEXT:
-            if msg == 'close':
-                await ws.close()
-                break
-            else:
-                reply = await is_logged_in(request)
-                await ws.send_str(reply)
-        elif msg.type == aiohttp.WSMsgType.ERROR:
-            print('ws exception')
-
-    print('websocket connection closed')
-    return ws
-
 async def is_logged_in(request):
-    # return web.Response(content_type='text/html', text=jpg_base64)
-    # pass
-    #_ = await RTCVideoStream.recv()
     ws.send(jpg_base64)
     results=json.loads(ws.recv())
     for i in results['results']:
-        logging.warning(i)
+        # logging.warning(i)
         if i['label'] == "myface" and i['value'] >= 0.8:
             # return "True"
             os.environ['isLoggedIn'] = "True"
-            os.environ['currTime'] = str(tim.time())
+            os.environ['currTime'] = str(time.time())
             return web.Response(content_type='text/data', text="True")
     else:
         # return "False"
@@ -286,23 +272,34 @@ async def offer(request):
 
 async def classify_remote(request):
     params = await request.json()
-    logging.warning(params['data'][:200])
     image = params['data']
     image_data = image[image.find('base64,/')+7:]
-    logging.warning(image_data[:200])
-    frame = imread(io.BytesIO(base64.b64decode(image_data)))
+    frame = Image.open(io.BytesIO(base64.b64decode(image_data)))
     encode_param = (int(cv2.IMWRITE_JPEG_QUALITY), 90)
     global jpg_base64
-    jpg_base64 = cv2.resize(frame, (96, 96), interpolation = cv2.INTER_AREA)
-    jpg_base64 = cv2.flip(jpg_base64,1)
+    frame = numpy.array(frame)
+    frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_alt2.xml')
+    faces = face_cascade.detectMultiScale(gray,1.1,4)
+    for (x, y, w, h) in faces:
+        if h >= 160 and w >= 160:
+            faces = frame[y-100:y+h+100,x-50:x+w+50]
+        else:
+            faces = frame
+    try:
+        jpg_base64 = cv2.resize(faces, (160, 160), interpolation = cv2.INTER_AREA)
+    except:
+        jpg_base64 = cv2.resize(frame, (160, 160), interpolation = cv2.INTER_AREA)
+    jpg_base64 = cv2.cvtColor(jpg_base64 , cv2.COLOR_BGR2RGB)
     _frame, jpg_base64 = cv2.imencode('.jpg', jpg_base64, encode_param)
     jpg_base64 = base64.b64encode(jpg_base64) # save img as base64 to send over websocket
     ws.send(jpg_base64)
     out = json.loads(ws.recv())
-    logging.warning(out)
     for i in out['results']:
-        logging.warning(i)
-        if i['label'] == "myface" and i['value'] >= 0.8:
+        if i['label'] == "myface" and i['value'] >= 0.5:
+            os.environ['isLoggedIn'] = "True"
+            os.environ['currTime'] = str(time.time())
             # return "True"
             return web.Response(content_type='text/data', text="True")
     else:
@@ -318,6 +315,7 @@ async def mjpeg_handler(request):
     await response.prepare(request)
     while True:
         data = await camera_device.get_jpeg_frame()
+        #print(data)
         print("Sending to classifier")
         ws.send(jpg_base64)
         global cl_results
@@ -345,62 +343,6 @@ async def on_shutdown(app):
     coros = [pc.close() for pc in pcs]
     ws.close()
     await asyncio.gather(*coros)
-
-async def peer_camera(request):
-    params = await request.json()
-    offer = RTCSessionDescription(
-        sdp=params['sdp'],
-        type=params['type'])
-    #pc_id = "PeerConnection(%s)" % uuid.uuid4()
-    #player = 
-    pc = pc_factory.create_peer_connection()
-    #video = pc.getReceivers[0].track
-    pcs.add(pc)
-    #pc.addTrack(video)
-
-    @pc.on("datachannel")
-    def on_datachannel(channel):
-        @channel.on("message")
-        def on_message(message):
-            if isinstance(message, str) and message.startswith("ping"):
-                channel.send("pong" + message[4:])
-
-    @pc.on("connectionstatechange")
-    async def on_connectionstatechange():
-        print("ICE connection state is", pc.iceConnectionState)
-        if pc.iceConnectionState == "failed":
-            await pc.close()
-            pcs.discard(pc)
-
-    @pc.on("track")
-    def on_track(track):
-        print("Track received", track.kind)
-
-        if track.kind == "audio":
-            pc.addTrack(track)
-            #recorder.addTrack(track)
-        elif track.kind == "video":
-            pc.addTrack(track)
-            #recorder.addTrack(track)
-        @track.on("ended")
-        async def on_ended():
-            print("Track ended", track.kind)
-            await pc.stop()
-
-    # handle offer
-    await pc.setRemoteDescription(offer)
-    #await recorder.start()
-
-    # send answer
-    answer = await pc.createAnswer()
-    await pc.setLocalDescription(answer)
-
-    return web.Response(
-        content_type="application/json",
-        text=json.dumps(
-            {"sdp": pc.localDescription.sdp, "type": pc.localDescription.type}
-        ),
-    )
 
 def checkDeviceReadiness():
     if not os.path.exists('/dev/video0') and platform.system() == 'Linux':
@@ -463,19 +405,13 @@ if __name__ == '__main__':
     app.router.add_get('/mjpeg', mjpeg_handler)
     app.router.add_get('/ice-config', config)
     app.router.add_get('/classification', classification)
-    app.router.add_get('/invite', peer_add)
-    app.router.add_get('/invited.js', invited)
-    app.router.add_post('/offer-remote', peer_camera)
     app.router.add_post('/classify-remote', classify_remote)
     app.router.add_get('/remote-login', remote_login)
     app.router.add_get('/isLoggedIn', is_logged_in)
     app.router.add_get('/admin', admin_page)
-    # app.router.add_get('/vid.html',vid_page)
-    app.router.add_get('/websocket', websocket_handler)
     app.router.add_get('/preferences',preferences_handler)
     app.router.add_get('/get_prefs', get_prefs)
     app.router.add_get('/users',users_handler)
-    # app.router.add_get('/client_area', client_area)
     app.router.add_get('/doLogin', do_login)
     app.router.add_post('/setPrefs', set_prefs)
     web.run_app(app, port=80)

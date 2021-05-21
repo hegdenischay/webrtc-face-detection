@@ -10,8 +10,10 @@ services:
                 depends_on:
                         - edgeimpulse-inference
                 ports:
-                        - "32343:80"
+                        - "80:80"
                 labels:
                         io.balena.features.kernel-modules: '1'
+                env_file:
+                        - .env
                 volumes:
                         - ./balena-cam/app:/usr/src/app

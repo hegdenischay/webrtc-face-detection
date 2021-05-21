@@ -8,6 +8,8 @@ import 'package:http_parser/http_parser.dart';
 import 'services/localstorage_service.dart';
 import 'dart:convert';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_native_image/flutter_native_image.dart';
+import 'service_locator.dart';
 
 class TakePictureScreen extends StatefulWidget {
   final CameraDescription camera;
@@ -24,6 +26,19 @@ class TakePictureScreen extends StatefulWidget {
 class TakePictureScreenState extends State<TakePictureScreen> {
   CameraController _controller;
   Future<void> _initializeControllerFuture;
+
+  Future<String> _resizePhoto(String filePath) async {
+      ImageProperties properties =
+          await FlutterNativeImage.getImageProperties(filePath);
+
+      int width = properties.width;
+      var offset = (properties.height - properties.width) / 2;
+
+      File croppedFile = await FlutterNativeImage.cropImage(
+          filePath, 0, offset.round(), width, width);
+
+      return croppedFile.path;
+  }
 
   @override
   void initState() {
@@ -60,7 +75,21 @@ class TakePictureScreenState extends State<TakePictureScreen> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             // If the Future is complete, display the preview.
-            return CameraPreview(_controller);
+            return new Scaffold(
+                body: new Container(
+                    child: new AspectRatio(
+                            aspectRatio: 1,
+              child:  ClipRect(
+              child: Transform.scale(
+                scale: 1 / 1,
+                child: Center(
+                  child: AspectRatio(
+                    aspectRatio: 1,
+                    child: CameraPreview(_controller),
+                  ),
+                ),
+              ),)
+            )));
           } else {
             // Otherwise, display a loading indicator.
             return Center(child: CircularProgressIndicator());
@@ -84,13 +113,23 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             var postUri = Uri.parse("https://" + host + "/classify-remote");
             List<int> imageBytes = await image.readAsBytes();
             String bytes = UriData.fromBytes(imageBytes).toString();
+    var localStorageService = locator<LocalStorageService>();
 
+         var username = localStorageService.hasUser;
+          print(username);
+          var password = localStorageService.hasPass;
+          print(password);
+          Codec<String, String> stringtoBase64 = utf8.fuse(base64);
+          String hash = stringtoBase64.encode(username + ":" + password);
+          print(hash);
+          print(postUri);
             // print("bytes read");
             http
                 .post(
               postUri,
               headers: <String, String>{
                 'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + hash,
               },
               body: jsonEncode(<String, String>{
                 'data': bytes,
@@ -98,7 +137,9 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             )
                 .then((response) {
               Fluttertoast.showToast(
-                  msg: response.body,
+                  msg: response.body == 'True'
+                      ? 'Login Worked!'
+                      : 'Login Failed!',
                   toastLength: Toast.LENGTH_SHORT,
                   gravity: ToastGravity.CENTER,
                   timeInSecForIosWeb: 1,

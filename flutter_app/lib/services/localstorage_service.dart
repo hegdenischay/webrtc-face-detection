@@ -4,6 +4,8 @@ class LocalStorageService {
   static LocalStorageService _instance;
   static SharedPreferences _preferences;
   var hostKey = 'host';
+  var userKey = 'username';
+  var passKey = 'password';
   static Future<LocalStorageService> getInstance() async {
     if (_instance == null) {
       _instance = LocalStorageService();
@@ -30,4 +32,10 @@ class LocalStorageService {
 
   String get hasHost => LocalStorageService.getFromDisk(hostKey) ?? 'unset';
   set hasHost(String value) => LocalStorageService.saveToDisk(hostKey, value);
+
+  String get hasUser => LocalStorageService.getFromDisk(userKey) ?? 'unset';
+  set hasUser(String value) => LocalStorageService.saveToDisk(userKey, value);
+
+  String get hasPass => LocalStorageService.getFromDisk(passKey) ?? 'unset';
+  set hasPass(String value) => LocalStorageService.saveToDisk(passKey, value);
 }

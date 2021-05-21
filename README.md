@@ -1,3 +1,11 @@
+# Our Additions
+
+* This project is a fork of [balena-cam-tinyml](https://github.com/edgeimpulse/balena-cam-tinyml), which continues to use the MobileNetV2 architecture of Edge-Impulse's original system, while adding Haar Cascades to crop only faces from the webcam feed to give better data to the MobileNetV2 classifir next. 
+* We have also made a flutter applicaton to work as a lock that connects to the backend and has a REST API to receive and send information.
+* We intend to make this a more hardware-oriented project.
+
+# Original Project Documentation follows
+
 # Image classification using Edge Impulse and BalenaCloud
 
 This guide will help you deploy an image classification system running on a Raspberry Pi. [Edge Impulse](https://edgeimpulse.com) enables developers to create intelligent device solutions with embedded Machine Learning. You will learn how to easily acquire image samples using your smartphone, train your ML algorithm and deploy the inference engine on your device. [BalenaCloud](https://balena.io) is a container-based platform for deploying IoT applications.
